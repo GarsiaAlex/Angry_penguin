@@ -2,8 +2,11 @@
 using namespace sf;
 
 class Entity : public Drawable {
+private:
 	Sprite sprite;
 	Texture texture;
-	Vector2f point; //?
 
+public:
+	virtual void draw();
+	virtual void update();
 };
