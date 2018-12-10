@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "angryPenguin", "angryPenguin\angryPenguin.vcxproj", "{73CF9709-520D-4DB1-B563-DF638E0C732C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73CF9709-520D-4DB1-B563-DF638E0C732C}.Release|x86.ActiveCfg = Release|Win32
+		{73CF9709-520D-4DB1-B563-DF638E0C732C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFBCD063-EAA1-454E-8F97-15894C633B79}
+	EndGlobalSection
+EndGlobal
