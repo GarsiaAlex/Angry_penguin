@@ -4,8 +4,8 @@
 
 Map::Map()
 {
-	this->levelSizeX = -1;
-	this->levelSizeY = -1;
+	this->levelSize.x = -1;
+	this->levelSize.y = -1;
 }
 
 /*
@@ -28,13 +28,12 @@ bool Map::load(string texture, int size, string level)
 		return false;
 	}
 	string line;
-	vector<vector<char>> levelData;
 	bool isLevelCorrect = true;
 	while (getline(file, line)) {
 		vector<char> layer(line.c_str(), line.c_str() + line.size());
-		if (levelSizeX != -1 && levelSizeX != layer.size())
+		if (levelSize.x != -1 && levelSize.x != layer.size())
 			isLevelCorrect = false;
-		levelSizeX = layer.size();
+		levelSize.x = layer.size();
 		levelData.push_back(layer);
 	}
 	file.close();
@@ -42,21 +41,21 @@ bool Map::load(string texture, int size, string level)
 		cout << "Lines in level file must be of equal size" << endl;
 		return false;
 	}
-	levelSizeY = levelData.size();
+	levelSize.y = levelData.size();
 
 	// загружаем текстуру и инициализируем квады
 	tileset.loadFromFile(textureSet);
 	vertices.setPrimitiveType(Quads);
-	vertices.resize(levelSizeX * levelSizeY * 4);
+	vertices.resize(levelSize.x * levelSize.y * 4);
 
 	// для каждой клетки на карте указываем 4 координаты - вершины квадрата, два раза - на карте и в текстуре
-	for (int i = 0; i < levelSizeX; i++) {
-		for (int j = 0; j < levelSizeY; j++) {
+	for (int i = 0; i < levelSize.x; i++) {
+		for (int j = 0; j < levelSize.y; j++) {
 			int tileNum = levelData[j][i] - '0';
 			int texCoordX = tileNum % (tileset.getSize().x / tileSize);
 			int texCoordY = tileNum / (tileset.getSize().x / tileSize);
 
-			Vertex* quad = &vertices[(i + j * levelSizeX) * 4];
+			Vertex* quad = &vertices[(i + j * levelSize.x) * 4];
 			quad[0].position = Vector2f(i * tileSize, j * tileSize);
 			quad[1].position = Vector2f((i + 1) * tileSize, j * tileSize);
 			quad[2].position = Vector2f((i + 1) * tileSize, (j + 1) * tileSize);
@@ -80,12 +79,14 @@ reload: время перезагрузки карты из файла в сек
 void Map::showDebugWindow(int speed, int fast, float reload)
 {
 	// окно размером в высоту карты и шириной=высота*2
-	RenderWindow wnd(VideoMode(tileSize * levelSizeY * 2, tileSize * levelSizeY), "MAP WINDOW", Style::Titlebar | Style::Close);
-	View view(FloatRect(0, 0, tileSize * levelSizeY * 2, tileSize * levelSizeY));
+	RenderWindow wnd(VideoMode(tileSize * levelSize.y * 2, tileSize * levelSize.y), "MAP WINDOW", Style::Titlebar | Style::Close);
+	View view(FloatRect(0, 0, tileSize * levelSize.y * 2, tileSize * levelSize.y));
 	float reloadSeconds = reload;
 	wnd.setVerticalSyncEnabled(true);
 	Clock clock;
 	Event event;
+	int x, y;
+	Vector2f coords;
 	while (wnd.isOpen()) {
 		Time elapsed = clock.restart();
 		while (wnd.pollEvent(event)) {
@@ -119,6 +120,34 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 			this->load(textureSet, tileSize, levelFile);
 		}
 	}
+}
+
+/*
+Получение номера тайла (из текстуры) по заданным координатам
+!!! при использовании View не забудь window->mapPixelToCoords !!!
+*/
+int Map::getTileNum(int x, int y)
+{
+	int cellX, cellY;
+	cellX = x / tileSize;
+	cellY = y / tileSize;
+	return levelData[cellY][cellX] - '0';
+}
+
+/*
+Получение размера тайла в пикселях
+*/
+int Map::getTileSize()
+{
+	return tileSize;
+}
+
+/*
+Получение размера карты
+*/
+Vector2u Map::getLevelSize()
+{
+	return levelSize;
 }
 
 /*
