@@ -9,6 +9,8 @@ public:
 	Player(string fileName);
 	int getHP();
 	int getScore();
-	void gravitation();
+	void addScore(int num);
+	void addHP(int num);
+	void subHP(int num);
 	bool collition();
 };
