@@ -127,21 +127,47 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 	}
 }
 
+Vertex * Map::getQuad(int x, int y)
+{
+	Vector2i cell = getTileCell(x, y);
+	int tileNum = levelData[cell.y][cell.x] - '0';
+	int texCoordX = tileNum % (tileset.getSize().x / tileSize);
+	int texCoordY = tileNum / (tileset.getSize().x / tileSize);
+	Vertex* quad = &vertices[(x + y * levelSize.x) * 4];
+	return quad;
+}
+
+Vector2i Map::getTileCell(int x, int y)
+{
+	Vector2i cell;
+	cell.x = x / tileSize;
+	cell.y = y / tileSize;
+	return cell;
+}
+
 /*
 Получение номера тайла (из текстуры) по заданным координатам
 !!! при использовании View не забудь window->mapPixelToCoords !!!
 */
 int Map::getTileNum(int x, int y)
 {
-	int cellX, cellY;
-	cellX = x / tileSize;
-	cellY = y / tileSize;
-	return levelData[cellY][cellX] - '0';
+	Vector2i cell = getTileCell(x, y);
+	return levelData[cell.y][cell.x] - '0';
 }
 
-void Map::setTileNum(int x, int y, char value)
+void Map::setTileNum(int cellX, int cellY, char value)
 {
-	levelData[y][x] = value + '0';
+	levelData[cellY][cellX] = value + '0';
+}
+
+bool Map::isCollidable(char value)
+{
+	switch (value){
+	case 2:
+		return true;
+	default:
+		return false;
+	}
 }
 
 /*
