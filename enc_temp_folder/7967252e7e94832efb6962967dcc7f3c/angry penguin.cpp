@@ -5,9 +5,9 @@ int main() {
 	/*
 	отладочное окно для рисования карты
 	*/
-	/*
+	
 	Map map;
-	map.load("tileset.png", 32, "map.txt");
+	map.load("tileset1.png", 32, "map.txt");
 	map.showDebugWindow(500, 5, 1);
 	//*/
 	/*
