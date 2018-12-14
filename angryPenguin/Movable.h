@@ -6,5 +6,6 @@ private:
 	Vector2f point;
 
 public:
+	Movable(string fileName);
 	virtual void move();
 };

@@ -6,7 +6,7 @@ private:
 	int HP;
 
 public:
-	Player(Texture texture);
+	Player(string fileName);
 	int getHP();
 	int getScore();
 	void gravitation();

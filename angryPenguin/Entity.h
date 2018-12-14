@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
+using namespace std;
 
 class Entity : public Drawable {
 private:
@@ -7,6 +8,7 @@ private:
 	Texture texture;
 
 public:
+	Entity(string fileName);
 	virtual void draw();
 	virtual void update();
 };
