@@ -48,6 +48,11 @@ bool Map::load(string texture, int size, string level)
 	vertices.setPrimitiveType(Quads);
 	vertices.resize(levelSize.x * levelSize.y * 4);
 
+	return refresh();
+}
+
+bool Map::refresh()
+{
 	// для каждой клетки на карте указываем 4 координаты - вершины квадрата, два раза - на карте и в текстуре
 	for (int i = 0; i < levelSize.x; i++) {
 		for (int j = 0; j < levelSize.y; j++) {
@@ -132,6 +137,11 @@ int Map::getTileNum(int x, int y)
 	cellX = x / tileSize;
 	cellY = y / tileSize;
 	return levelData[cellY][cellX] - '0';
+}
+
+void Map::setTileNum(int x, int y, char value)
+{
+	levelData[y][x] = value + '0';
 }
 
 /*

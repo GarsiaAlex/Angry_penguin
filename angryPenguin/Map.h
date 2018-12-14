@@ -14,9 +14,11 @@ private:
 public:
 	Map();
 	bool load(string textureSet, int size, string levelFile);
+	bool refresh();
 	void showDebugWindow(int speed, int fast, float reload);
 
 	int getTileNum(int x, int y);
+	void setTileNum(int x, int y, char value);
 	int getTileSize();
 	Vector2u getLevelSize();
 
