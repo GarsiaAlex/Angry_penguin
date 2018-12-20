@@ -2,7 +2,7 @@
 using namespace sf;
 
 class Entity : public Drawable {
-private:
+protected:
 	Sprite sprite;
 	Texture texture;
 
