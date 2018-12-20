@@ -3,6 +3,8 @@
 Player::Player(string fileName) : Movable (fileName) {
 	HP = 150;
 	score = 0;
+	position.y = 400;
+	sprite.setTextureRect(IntRect(30, 30, 30, 30));
 }
 
 int Player::getHP() {
@@ -23,4 +25,22 @@ void Player::addHP(int num) {
 
 void Player::subHP(int num) {
 	HP -= num;
+}
+
+bool Player::collision()
+{
+	return false;
+}
+
+void Player::update(Time elapsed)
+{
+	if (Keyboard::isKeyPressed(Keyboard::Right)) {
+		speed.x = 100;
+		position.x += speed.x*0.025f;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Left)) {
+		speed.x = -100;
+		position.x += speed.x * 0.025f;
+	}
+	sprite.setPosition(position);
 }

@@ -12,5 +12,6 @@ public:
 	void addScore(int num);
 	void addHP(int num);
 	void subHP(int num);
-	bool collition();
+	bool collision();
+	virtual void update(Time elapsed) override;
 };

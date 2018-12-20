@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Map.h"
 
-Game::Game()
+Game::Game(): player("cat.png")
 {
 	window = new RenderWindow(VideoMode(900, 500), "ANGRY PENGUIN | ESC to exit", Style::Titlebar | Style::Close);
 	window->setVerticalSyncEnabled(true);
@@ -20,7 +20,7 @@ void Game::start()
 {
 	Clock clock;
 	Event event;
-
+	
 	while (window->isOpen()) {
 		// время кадра
 		Time elapsed = clock.restart();
@@ -41,7 +41,13 @@ void Game::start()
 				break;
 			}
 		}
+
 		window->clear(); // очистка кадра
+
+		player.update(elapsed);
+		player.move(elapsed);
+		window->draw(player);
+		
 		window->display(); // отрисовка кадра
 	}
 }
