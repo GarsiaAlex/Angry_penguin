@@ -4,13 +4,15 @@ using namespace std;
 using namespace sf;
 
 class Map : public Drawable{
-private:
+protected:
 	VertexArray vertices;
 	Texture tileset;
 	vector<vector<char>> levelData;
 	Vector2u levelSize;
 	int tileSize;
-	string textureSet, levelFile;
+	string textureSet;
+	string levelFile;
+
 public:
 	Map();
 	bool load(string textureSet, int size, string levelFile);
