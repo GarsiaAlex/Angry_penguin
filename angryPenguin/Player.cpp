@@ -30,16 +30,16 @@ bool Player::collision()
 	return false;
 }
 
-void Player::jump()
-{
-}
-
 void Player::update(Time elapsed)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
 		speed.x = 100;
 	}else if (Keyboard::isKeyPressed(Keyboard::Left)) {
 		speed.x = -100;
+	}
+	else if (Keyboard::isKeyPressed(Keyboard::Up)) {
+		onGround = false;
+		jump();
 	}
 	else {
 		speed.x = 0;

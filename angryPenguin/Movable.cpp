@@ -4,7 +4,15 @@ Movable::Movable(Map* map, string fileName) : Entity(fileName)
 {
 	this->map = map;
 	gravity.x = 0;
-	gravity.y = 300;
+	gravity.y = 1000;
+}
+
+void Movable::jump()
+{
+	if (!onGround)
+		speed.y = -200;
+	else
+		speed.y = 0;
 }
 
 void Movable::move(Time elapsed)
@@ -92,6 +100,16 @@ void Movable::move(Time elapsed)
 			}
 		}
 	}
+
+	/**/
+	if (!onGround) {
+		l += 1;
+		if (l == 30) {
+			l = 0;
+			onGround = true;
+		}
+	}
+
 	speed.y += gravity.y * elapsed.asSeconds();
 	forwardFrameMovement = speed.y*elapsed.asSeconds();
 	distanceToQuad = FLT_MAX;
@@ -102,6 +120,9 @@ void Movable::move(Time elapsed)
 	realMovement = direction * min(abs(forwardFrameMovement), abs(distanceToQuad));
 	speed.y = realMovement / elapsed.asSeconds();
 	position.y += realMovement;
+	
+	if (onGround)
+		jump();
 
 	// Move sprite
 	//cout << "Speed X: " << speed.x << " Y: " << speed.y << endl;

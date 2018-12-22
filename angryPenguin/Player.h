@@ -13,6 +13,5 @@ public:
 	void addHP(int num);
 	void subHP(int num);
 	bool collision();
-	void jump();
 	virtual void update(Time elapsed) override;
 };
