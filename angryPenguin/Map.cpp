@@ -81,52 +81,6 @@ speed: скорость обычной прокрутки в пикселях/с
 fast: speed*fast = скорость ускоренной прокрутки при зажатом пробеле
 reload: время перезагрузки карты из файла в секундах
 */
-void Map::showDebugWindow(int speed, int fast, float reload)
-{
-	// окно размером в высоту карты и шириной=высота*2
-	RenderWindow wnd(VideoMode(tileSize * levelSize.y * 2, tileSize * levelSize.y), "MAP WINDOW", Style::Titlebar | Style::Close);
-	View view(FloatRect(0, 0, tileSize * levelSize.y * 2, tileSize * levelSize.y));
-	float reloadSeconds = reload;
-	wnd.setVerticalSyncEnabled(true);
-	Clock clock;
-	Event event;
-	int x, y;
-	Vector2f coords;
-	while (wnd.isOpen()) {
-		Time elapsed = clock.restart();
-		while (wnd.pollEvent(event)) {
-			switch (event.type) {
-			case Event::Closed:
-				wnd.close();
-				break;
-			case Event::KeyPressed:
-				if (event.key.code == Keyboard::Escape)
-					wnd.close();
-				break;
-			default:
-				break;
-			}
-		}
-		wnd.setView(view);
-		wnd.clear();
-		wnd.draw(*this);
-		wnd.display();
-
-		// прокрутка карты
-		if(Keyboard::isKeyPressed(Keyboard::Right))
-			view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? speed * fast : speed), 0));
-		if (Keyboard::isKeyPressed(Keyboard::Left))
-			view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? -speed * fast : -speed), 0));
-
-		// перезагрузка карты
-		reloadSeconds -= elapsed.asSeconds();
-		if (reloadSeconds <= 0) {
-			reloadSeconds = reload;
-			this->load(textureSet, tileSize, levelFile);
-		}
-	}
-}
-
 /*
 Получение номера тайла (из текстуры) по заданным координатам
 !!! при использовании View не забудь window->mapPixelToCoords !!!
