@@ -12,16 +12,16 @@ void Movable::move(Time elapsed)
 	auto bounds = sprite.getGlobalBounds();
 	/* ========================================================================================== */
 	// X movement
-	// ВСЕ КООРДИНАТЫ В БЛОКЕ - ДЛЯ ОСИ Х
+	// Р’РЎР• РљРћРћР Р”РРќРђРўР« Р’ Р‘Р›РћРљР• - Р”Р›РЇ РћРЎР РҐ
 	/* ========================================================================================== */
-	int direction = (speed.x >= 0) ? 1 : -1; // направление движения по оси
-	float forward = (direction > 0) ? bounds.left + bounds.width : bounds.left; // соответствующая направлению координата (вперед - передняя грань объекта итд)
+	int direction = (speed.x >= 0) ? 1 : -1; // РЅР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ РїРѕ РѕСЃРё
+	float forward = (direction > 0) ? bounds.left + bounds.width : bounds.left; // СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰Р°СЏ РЅР°РїСЂР°РІР»РµРЅРёСЋ РєРѕРѕСЂРґРёРЅР°С‚Р° (РІРїРµСЂРµРґ - РїРµСЂРµРґРЅСЏСЏ РіСЂР°РЅСЊ РѕР±СЉРµРєС‚Р° РёС‚Рґ)
 	
-	// координаты линий, следуя которым мы ищем столкновения
+	// РєРѕРѕСЂРґРёРЅР°С‚С‹ Р»РёРЅРёР№, СЃР»РµРґСѓСЏ РєРѕС‚РѕСЂС‹Рј РјС‹ РёС‰РµРј СЃС‚РѕР»РєРЅРѕРІРµРЅРёСЏ
 	/*
-	000----------   <= линия
+	000----------   <= Р»РёРЅРёСЏ
 	000
-	000----------   <= линия
+	000----------   <= Р»РёРЅРёСЏ
 	
 	*/
 	vector<float> xInters;
@@ -30,7 +30,7 @@ void Movable::move(Time elapsed)
 	}
 	xInters.push_back(bounds.top + bounds.height - 1);
 
-	// в цикле двигаемся по линии, ищем ближайший тайл с которым можно столкнутся
+	// РІ С†РёРєР»Рµ РґРІРёРіР°РµРјСЃСЏ РїРѕ Р»РёРЅРёРё, РёС‰РµРј Р±Р»РёР¶Р°Р№С€РёР№ С‚Р°Р№Р» СЃ РєРѕС‚РѕСЂС‹Рј РјРѕР¶РЅРѕ СЃС‚РѕР»РєРЅСѓС‚СЃСЏ
 	Vector2i closestXIntersTile;
 	bool collision = false;
 	float closestScan = FLT_MAX;
@@ -47,28 +47,28 @@ void Movable::move(Time elapsed)
 		}
 	}
 
-	// предполагаемое движение
+	// РїСЂРµРґРїРѕР»Р°РіР°РµРјРѕРµ РґРІРёР¶РµРЅРёРµ
 	float forwardFrameMovement = speed.x*elapsed.asSeconds();
 	float distanceToQuad = FLT_MAX;
 
-	// движение до препятствия
+	// РґРІРёР¶РµРЅРёРµ РґРѕ РїСЂРµРїСЏС‚СЃС‚РІРёСЏ
 	if (collision) {
 		auto quad = map->getQuad(closestXIntersTile.x, closestXIntersTile.y);
 		distanceToQuad = direction * min(abs(forward - quad[0].position.x), abs(forward - quad[1].position.x));
 	}
 
-	// берем минимум между "до преп." и предполагаемым
+	// Р±РµСЂРµРј РјРёРЅРёРјСѓРј РјРµР¶РґСѓ "РґРѕ РїСЂРµРї." Рё РїСЂРµРґРїРѕР»Р°РіР°РµРјС‹Рј
 	float realMovement = direction * min( abs(forwardFrameMovement), abs(distanceToQuad) );
 	
-	// подправляем скорость в соотв. в перемещением
+	// РїРѕРґРїСЂР°РІР»СЏРµРј СЃРєРѕСЂРѕСЃС‚СЊ РІ СЃРѕРѕС‚РІ. РІ РїРµСЂРµРјРµС‰РµРЅРёРµРј
 	speed.x = realMovement / elapsed.asSeconds();
 
-	// двигаемся
+	// РґРІРёРіР°РµРјСЃСЏ
 	position.x += realMovement;
 	
 	/* ========================================================================================== */
 	// Y movement
-	// логика аналогично оси Х
+	// Р»РѕРіРёРєР° Р°РЅР°Р»РѕРіРёС‡РЅРѕ РѕСЃРё РҐ
 	/* ========================================================================================== */
 	direction = (speed.y >= 0) ? 1 : -1;
 	forward = (direction > 0) ? bounds.top + bounds.height : bounds.top;
@@ -108,7 +108,7 @@ void Movable::move(Time elapsed)
 	sprite.setPosition(position);
 }
 
-// ПОКА не используется. не трогать :Р
+// РџРћРљРђ РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ. РЅРµ С‚СЂРѕРіР°С‚СЊ :Р 
 bool Movable::isPhasing()
 {
 	auto bounds = sprite.getGlobalBounds();
