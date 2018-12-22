@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Player.h"
 #include <fstream>
 #include <iostream>
 
@@ -93,6 +94,18 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 	Event event;
 	int x, y;
 	Vector2f coords;
+
+	/*
+	Movable m(this, "test_move.png");
+	m.point.x = 300;
+	m.point.y = 240;
+	m.speed.x = 32;
+	*/
+	Player m(this, "test_move.png");
+	m.position.x = 32*5; m.position.y = 32*6;
+	//m.speed.x = 50;
+	//m.speed.y = -200;
+
 	while (wnd.isOpen()) {
 		Time elapsed = clock.restart();
 		while (wnd.pollEvent(event)) {
@@ -103,10 +116,12 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 			case Event::KeyPressed:
 				if (event.key.code == Keyboard::Escape)
 					wnd.close();
+				if (event.key.code == Keyboard::Space)
+					m.jump();
 				break;
 			case Event::MouseMoved:
 				coords = wnd.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), view);
-				cout << coords.x << " " << coords.y << endl;
+				//cout << coords.x << " " << coords.y << endl;
 				break;
 			default:
 				break;
@@ -115,13 +130,18 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 		wnd.setView(view);
 		wnd.clear();
 		wnd.draw(*this);
+
+		m.update(elapsed);
+		m.move(elapsed);
+		wnd.draw(m);
+
 		wnd.display();
 
 		// прокрутка карты
-		if(Keyboard::isKeyPressed(Keyboard::Right))
-			view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? speed * fast : speed), 0));
-		if (Keyboard::isKeyPressed(Keyboard::Left))
-			view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? -speed * fast : -speed), 0));
+		//if(Keyboard::isKeyPressed(Keyboard::Right))
+		//	view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? speed * fast : speed), 0));
+		//if (Keyboard::isKeyPressed(Keyboard::Left))
+		//	view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? -speed * fast : -speed), 0));
 
 		// перезагрузка карты
 		reloadSeconds -= elapsed.asSeconds();
@@ -135,18 +155,15 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 Vertex * Map::getQuad(int x, int y)
 {
 	Vector2i cell = getTileCell(x, y);
-	int tileNum = levelData[cell.y][cell.x] - '0';
-	int texCoordX = tileNum % (tileset.getSize().x / tileSize);
-	int texCoordY = tileNum / (tileset.getSize().x / tileSize);
-	Vertex* quad = &vertices[(x + y * levelSize.x) * 4];
+	Vertex* quad = &vertices[(cell.x + cell.y * levelSize.x) * 4];
 	return quad;
 }
 
 Vector2i Map::getTileCell(int x, int y)
 {
 	Vector2i cell;
-	cell.x = x / tileSize;
-	cell.y = y / tileSize;
+	cell.x = max(x, 0) / tileSize;
+	cell.y = max(y, 0) / tileSize;
 	return cell;
 }
 

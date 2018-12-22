@@ -5,6 +5,7 @@ using namespace sf;
 class Game {
 private:
 	RenderWindow* window;
+	Map* map;
 	Texture background;
 	Player player;
 

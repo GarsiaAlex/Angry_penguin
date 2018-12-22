@@ -6,12 +6,13 @@ private:
 	int HP;
 
 public:
-	Player(string fileName);
+	Player(Map* map, string fileName);
 	int getHP();
 	int getScore();
 	void addScore(int num);
 	void addHP(int num);
 	void subHP(int num);
 	bool collision();
+	void jump();
 	virtual void update(Time elapsed) override;
 };

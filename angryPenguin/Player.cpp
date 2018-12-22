@@ -1,10 +1,8 @@
 #include "Player.h"
 
-Player::Player(string fileName) : Movable (fileName) {
+Player::Player(Map* map, string fileName) : Movable (map, fileName) {
 	HP = 150;
 	score = 0;
-	position.y = 400;
-	sprite.setTextureRect(IntRect(30, 30, 30, 30));
 }
 
 int Player::getHP() {
@@ -32,15 +30,18 @@ bool Player::collision()
 	return false;
 }
 
+void Player::jump()
+{
+}
+
 void Player::update(Time elapsed)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
 		speed.x = 100;
-		position.x += speed.x*0.025f;
-	}
-	if (Keyboard::isKeyPressed(Keyboard::Left)) {
+	}else if (Keyboard::isKeyPressed(Keyboard::Left)) {
 		speed.x = -100;
-		position.x += speed.x * 0.025f;
 	}
-	sprite.setPosition(position);
+	else {
+		speed.x = 0;
+	}
 }

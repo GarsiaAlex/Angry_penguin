@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Map.h"
 
-Game::Game(): player("cat.png")
+Game::Game(): player(map, "cat.png")
 {
 	window = new RenderWindow(VideoMode(900, 500), "ANGRY PENGUIN | ESC to exit", Style::Titlebar | Style::Close);
 	window->setVerticalSyncEnabled(true);
