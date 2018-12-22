@@ -7,29 +7,30 @@ Movable::Movable(Map* map, string fileName) : Entity(fileName)
 	gravity.y = 300;
 }
 
-inline float Movable::getDistance(float x1, float y1, float x2, float y2)
-{
-	return ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2));
-}
-
-inline float Movable::getDistance(Vector2f& first, Vector2f& second)
-{
-	return ((first.x - second.x) * (first.x - second.x)) + ((first.y - second.y) * (first.y - second.y));
-}
-
 void Movable::move(Time elapsed)
 {
 	auto bounds = sprite.getGlobalBounds();
 	/* ========================================================================================== */
 	// X movement
+	// ВСЕ КООРДИНАТЫ В БЛОКЕ - ДЛЯ ОСИ Х
 	/* ========================================================================================== */
-	int direction = (speed.x >= 0) ? 1 : -1;
-	float forward = (direction > 0) ? bounds.left + bounds.width : bounds.left;
+	int direction = (speed.x >= 0) ? 1 : -1; // направление движения по оси
+	float forward = (direction > 0) ? bounds.left + bounds.width : bounds.left; // соответствующая направлению координата (вперед - передняя грань объекта итд)
+	
+	// координаты линий, следуя которым мы ищем столкновения
+	/*
+	000----------   <= линия
+	000
+	000----------   <= линия
+	
+	*/
 	vector<float> xInters;
 	for (float i = bounds.top; i < bounds.top + bounds.height; i += map->getTileSize() / 2) {
 		xInters.push_back(i);
 	}
 	xInters.push_back(bounds.top + bounds.height - 1);
+
+	// в цикле двигаемся по линии, ищем ближайший тайл с которым можно столкнутся
 	Vector2i closestXIntersTile;
 	bool collision = false;
 	float closestScan = FLT_MAX;
@@ -45,18 +46,29 @@ void Movable::move(Time elapsed)
 			}
 		}
 	}
+
+	// предполагаемое движение
 	float forwardFrameMovement = speed.x*elapsed.asSeconds();
 	float distanceToQuad = FLT_MAX;
+
+	// движение до препятствия
 	if (collision) {
 		auto quad = map->getQuad(closestXIntersTile.x, closestXIntersTile.y);
 		distanceToQuad = direction * min(abs(forward - quad[0].position.x), abs(forward - quad[1].position.x));
 	}
+
+	// берем минимум между "до преп." и предполагаемым
 	float realMovement = direction * min( abs(forwardFrameMovement), abs(distanceToQuad) );
+	
+	// подправляем скорость в соотв. в перемещением
 	speed.x = realMovement / elapsed.asSeconds();
+
+	// двигаемся
 	position.x += realMovement;
 	
 	/* ========================================================================================== */
 	// Y movement
+	// логика аналогично оси Х
 	/* ========================================================================================== */
 	direction = (speed.y >= 0) ? 1 : -1;
 	forward = (direction > 0) ? bounds.top + bounds.height : bounds.top;
@@ -92,10 +104,11 @@ void Movable::move(Time elapsed)
 	position.y += realMovement;
 
 	// Move sprite
-	cout << "Speed X: " << speed.x << " Y: " << speed.y << endl;
+	//cout << "Speed X: " << speed.x << " Y: " << speed.y << endl;
 	sprite.setPosition(position);
 }
 
+// ПОКА не используется. не трогать :Р
 bool Movable::isPhasing()
 {
 	auto bounds = sprite.getGlobalBounds();

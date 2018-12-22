@@ -95,16 +95,9 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 	int x, y;
 	Vector2f coords;
 
-	/*
-	Movable m(this, "test_move.png");
-	m.point.x = 300;
-	m.point.y = 240;
-	m.speed.x = 32;
-	*/
+	// плеер создается тут
 	Player m(this, "test_move.png");
 	m.position.x = 32*5; m.position.y = 32*6;
-	//m.speed.x = 50;
-	//m.speed.y = -200;
 
 	while (wnd.isOpen()) {
 		Time elapsed = clock.restart();
@@ -117,7 +110,7 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 				if (event.key.code == Keyboard::Escape)
 					wnd.close();
 				if (event.key.code == Keyboard::Space)
-					m.jump();
+					m.jump(); // <= не работает
 				break;
 			case Event::MouseMoved:
 				coords = wnd.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), view);
@@ -144,11 +137,11 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 		//	view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? -speed * fast : -speed), 0));
 
 		// перезагрузка карты
-		reloadSeconds -= elapsed.asSeconds();
-		if (reloadSeconds <= 0) {
-			reloadSeconds = reload;
-			this->load(textureSet, tileSize, levelFile);
-		}
+		//reloadSeconds -= elapsed.asSeconds();
+		//if (reloadSeconds <= 0) {
+		//	reloadSeconds = reload;
+		//	this->load(textureSet, tileSize, levelFile);
+		//}
 	}
 }
 
