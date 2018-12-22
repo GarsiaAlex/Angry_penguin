@@ -2,7 +2,7 @@
 #include "Map.h"
 
 class Movable : public Entity {
-private:
+protected:
 	Map *map;
 	Vector2f speed;
 	Vector2f point;

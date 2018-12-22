@@ -16,8 +16,8 @@ inline float Movable::getDistance(Vector2f& first, Vector2f& second)
 	return ((first.x - second.x) * (first.x - second.x)) + ((first.y - second.y) * (first.y - second.y));
 }
 
-// костыыыыль!
-// перегонять FloatRect в координаты вершин
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ FloatRect пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 struct {
 	FloatRect *r;
 	void operator()(FloatRect rect) { r = &rect; }
