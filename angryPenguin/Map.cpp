@@ -84,6 +84,7 @@ reload: время перезагрузки карты из файла в сек
 void Map::showDebugWindow(int speed, int fast, float reload)
 {
 	// окно размером в высоту карты и шириной=высота*2
+	// 300 x 240
 	RenderWindow wnd(VideoMode(tileSize * levelSize.y * 2, tileSize * levelSize.y), "MAP WINDOW", Style::Titlebar | Style::Close);
 	View view(FloatRect(0, 0, tileSize * levelSize.y * 2, tileSize * levelSize.y));
 	float reloadSeconds = reload;
@@ -102,6 +103,10 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 			case Event::KeyPressed:
 				if (event.key.code == Keyboard::Escape)
 					wnd.close();
+				break;
+			case Event::MouseMoved:
+				coords = wnd.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), view);
+				cout << coords.x << " " << coords.y << endl;
 				break;
 			default:
 				break;
