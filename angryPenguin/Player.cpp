@@ -33,13 +33,9 @@ bool Player::collision()
 void Player::update(Time elapsed)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
-		speed.x = 100;
+		speed.x = 150;
 	}else if (Keyboard::isKeyPressed(Keyboard::Left)) {
-		speed.x = -100;
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::Up)) {
-		onGround = false;
-		jump();
+		speed.x = -150;
 	}
 	else {
 		speed.x = 0;

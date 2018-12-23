@@ -109,8 +109,8 @@ void Map::showDebugWindow(int speed, int fast, float reload)
 			case Event::KeyPressed:
 				if (event.key.code == Keyboard::Escape)
 					wnd.close();
-				if (event.key.code == Keyboard::Space)
-					m.jump(); // <= не работает
+				if (event.key.code == Keyboard::Up)
+					m.jump();
 				break;
 			case Event::MouseMoved:
 				coords = wnd.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), view);
@@ -167,7 +167,7 @@ Vector2i Map::getTileCell(int x, int y)
 int Map::getTileNum(int x, int y)
 {
 	Vector2i cell = getTileCell(x, y);
-	return levelData[cell.y][cell.x] - '0';
+	return levelData[min((unsigned int)cell.y, levelData.size() - 1)][min((unsigned int)cell.x, levelData[0].size() - 1)] - '0';
 }
 
 void Map::setTileNum(int cellX, int cellY, char value)
