@@ -18,8 +18,11 @@ public:
 	bool load(string textureSet, int size, string levelFile);
 	bool refresh();
 
+	Vertex* getQuad(int x, int y);
+	Vector2i getTileCell(int x, int y);
 	int getTileNum(int x, int y);
-	void setTileNum(int x, int y, char value);
+	void setTileNum(int cellX, int cellY, char value);
+	static bool isCollidable(char value);
 	int getTileSize();
 	Vector2u getLevelSize();
 

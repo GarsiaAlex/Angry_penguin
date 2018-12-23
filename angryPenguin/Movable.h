@@ -1,10 +1,16 @@
 #include "Entity.h"
+#include "Map.h"
 
 class Movable : public Entity {
-private:
+public:
+	Map *map;
 	Vector2f speed;
-	Vector2f point;
+	Vector2f gravity;
+	bool isOnGround;
 
 public:
-	virtual void move();
+	Movable(Map* map, string fileName);
+	virtual void move(Time elapsed);
+	void jump();
+	bool isPhasing();
 };

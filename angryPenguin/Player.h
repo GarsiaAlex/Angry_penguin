@@ -6,9 +6,12 @@ private:
 	int HP;
 
 public:
-	Player(Texture texture);
+	Player(Map* map, string fileName);
 	int getHP();
 	int getScore();
-	void gravitation();
-	bool collition();
+	void addScore(int num);
+	void addHP(int num);
+	void subHP(int num);
+	bool collision();
+	virtual void update(Time elapsed) override;
 };

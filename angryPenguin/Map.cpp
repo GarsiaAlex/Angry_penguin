@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Player.h"
 #include <fstream>
 #include <iostream>
 
@@ -81,21 +82,107 @@ speed: скорость обычной прокрутки в пикселях/с
 fast: speed*fast = скорость ускоренной прокрутки при зажатом пробеле
 reload: время перезагрузки карты из файла в секундах
 */
+void Map::showDebugWindow(int speed, int fast, float reload)
+{
+	// окно размером в высоту карты и шириной=высота*2
+	// 300 x 240
+	RenderWindow wnd(VideoMode(tileSize * levelSize.y * 2, tileSize * levelSize.y), "MAP WINDOW", Style::Titlebar | Style::Close);
+	View view(FloatRect(0, 0, tileSize * levelSize.y * 2, tileSize * levelSize.y));
+	float reloadSeconds = reload;
+	wnd.setVerticalSyncEnabled(true);
+	Clock clock;
+	Event event;
+	int x, y;
+	Vector2f coords;
+
+	// плеер создается тут
+	Player m(this, "test_move.png");
+	m.position.x = 32*5; m.position.y = 32*6;
+
+	while (wnd.isOpen()) {
+		Time elapsed = clock.restart();
+		while (wnd.pollEvent(event)) {
+			switch (event.type) {
+			case Event::Closed:
+				wnd.close();
+				break;
+			case Event::KeyPressed:
+				if (event.key.code == Keyboard::Escape)
+					wnd.close();
+				if (event.key.code == Keyboard::Up)
+					m.jump();
+				break;
+			case Event::MouseMoved:
+				coords = wnd.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), view);
+				//cout << coords.x << " " << coords.y << endl;
+				break;
+			default:
+				break;
+			}
+		}
+		wnd.setView(view);
+		wnd.clear();
+		wnd.draw(*this);
+
+		m.update(elapsed);
+		m.move(elapsed);
+		wnd.draw(m);
+
+		wnd.display();
+
+		// прокрутка карты
+		//if(Keyboard::isKeyPressed(Keyboard::Right))
+		//	view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? speed * fast : speed), 0));
+		//if (Keyboard::isKeyPressed(Keyboard::Left))
+		//	view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? -speed * fast : -speed), 0));
+
+		// перезагрузка карты
+		//reloadSeconds -= elapsed.asSeconds();
+		//if (reloadSeconds <= 0) {
+		//	reloadSeconds = reload;
+		//	this->load(textureSet, tileSize, levelFile);
+		//}
+	}
+}
+
+Vertex * Map::getQuad(int x, int y)
+{
+	Vector2i cell = getTileCell(x, y);
+	Vertex* quad = &vertices[(cell.x + cell.y * levelSize.x) * 4];
+	return quad;
+}
+
+Vector2i Map::getTileCell(int x, int y)
+{
+	Vector2i cell;
+	cell.x = max(x, 0) / tileSize;
+	cell.y = max(y, 0) / tileSize;
+	return cell;
+}
+
 /*
 Получение номера тайла (из текстуры) по заданным координатам
 !!! при использовании View не забудь window->mapPixelToCoords !!!
 */
 int Map::getTileNum(int x, int y)
 {
-	int cellX, cellY;
-	cellX = x / tileSize;
-	cellY = y / tileSize;
-	return levelData[cellY][cellX] - '0';
+	Vector2i cell = getTileCell(x, y);
+	return levelData[min((unsigned int)cell.y, levelData.size() - 1)][min((unsigned int)cell.x, levelData[0].size() - 1)] - '0';
 }
 
-void Map::setTileNum(int x, int y, char value)
+void Map::setTileNum(int cellX, int cellY, char value)
 {
-	levelData[y][x] = value + '0';
+	levelData[cellY][cellX] = value + '0';
+}
+
+bool Map::isCollidable(char value)
+{
+	switch (value){
+	case 2:
+		return true;
+	default:
+		return false;
+	}
 }
 
 /*
