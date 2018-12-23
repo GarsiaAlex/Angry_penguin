@@ -61,7 +61,8 @@ void Movable::move(Time elapsed)
 	float realMovement = direction * min( abs(forwardFrameMovement), abs(distanceToQuad) );
 	
 	// подправляем скорость в соотв. в перемещением
-	speed.x = realMovement / elapsed.asSeconds();
+	if (elapsed.asMilliseconds() != 0)
+		speed.x = realMovement / elapsed.asSeconds();
 
 	// двигаемся
 	position.x += realMovement;
@@ -100,9 +101,15 @@ void Movable::move(Time elapsed)
 		distanceToQuad = direction * min(abs(forward - quad[0].position.y), abs(forward - quad[2].position.y));
 	}
 	realMovement = direction * min(abs(forwardFrameMovement), abs(distanceToQuad));
-	speed.y = realMovement / elapsed.asSeconds();
-	if (abs(speed.y) < 5)
+	if(elapsed.asMilliseconds() != 0)
+		speed.y = realMovement / elapsed.asSeconds();
+	if (abs(speed.y) < 3) {
 		speed.y = 0;
+		isOnGround = true;
+	}
+	else {
+		isOnGround = false;
+	}
 	position.y += realMovement;
 
 	// Move sprite
@@ -112,7 +119,8 @@ void Movable::move(Time elapsed)
 
 void Movable::jump()
 {
-	speed.y -= 300;
+	if(isOnGround)
+		speed.y -= 350;
 }
 
 // ПОКА не используется. не трогать :Р

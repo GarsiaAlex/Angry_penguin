@@ -5,7 +5,10 @@ using namespace sf;
 class Game {
 private:
 	RenderWindow* window;
-	Map* map;
+	View* view;
+	Map map;
+	float viewStart, viewEnd;
+	float viewOffset;
 	Texture background;
 	Player player;
 
