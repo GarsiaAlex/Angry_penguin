@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Map.h"
 
-Game::Game(): player(&map, "cat.png")
+Game::Game(): player(&map, "cat.png"), penguin(&map, "cat.png")
 {
 	map.load("tileset.png", 32, "map.txt");
 	window = new RenderWindow(VideoMode(map.getTileSize() * map.getLevelSize().y * 2, map.getTileSize() * map.getLevelSize().y), "ANGRY PENGUIN | ESC to exit", Style::Titlebar | Style::Close);
@@ -56,6 +56,10 @@ void Game::start(int speed, int fast, float reload)
 		player.move(elapsed);
 		window->draw(player);
 		
+		penguin.update(elapsed);
+		penguin.move(elapsed, &player);
+		window->draw(penguin);
+
 		window->display(); // отрисовка кадра
 		if(player.position.x > view->getCenter().x)
 			view->setCenter(round(player.position.x), view->getCenter().y);
