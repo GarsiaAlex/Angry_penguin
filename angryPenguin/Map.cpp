@@ -82,68 +82,6 @@ speed: скорость обычной прокрутки в пикселях/с
 fast: speed*fast = скорость ускоренной прокрутки при зажатом пробеле
 reload: время перезагрузки карты из файла в секундах
 */
-void Map::showDebugWindow(int speed, int fast, float reload)
-{
-	// окно размером в высоту карты и шириной=высота*2
-	// 300 x 240
-	RenderWindow wnd(VideoMode(tileSize * levelSize.y * 2, tileSize * levelSize.y), "MAP WINDOW", Style::Titlebar | Style::Close);
-	View view(FloatRect(0, 0, tileSize * levelSize.y * 2, tileSize * levelSize.y));
-	float reloadSeconds = reload;
-	wnd.setVerticalSyncEnabled(true);
-	Clock clock;
-	Event event;
-	int x, y;
-	Vector2f coords;
-
-	// плеер создается тут
-	Player m(this, "test_move.png");
-	m.position.x = 32*5; m.position.y = 32*6;
-
-	while (wnd.isOpen()) {
-		Time elapsed = clock.restart();
-		while (wnd.pollEvent(event)) {
-			switch (event.type) {
-			case Event::Closed:
-				wnd.close();
-				break;
-			case Event::KeyPressed:
-				if (event.key.code == Keyboard::Escape)
-					wnd.close();
-				if (event.key.code == Keyboard::Up)
-					m.jump();
-				break;
-			case Event::MouseMoved:
-				coords = wnd.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), view);
-				//cout << coords.x << " " << coords.y << endl;
-				break;
-			default:
-				break;
-			}
-		}
-		wnd.setView(view);
-		wnd.clear();
-		wnd.draw(*this);
-
-		m.update(elapsed);
-		m.move(elapsed);
-		wnd.draw(m);
-
-		wnd.display();
-
-		// прокрутка карты
-		//if(Keyboard::isKeyPressed(Keyboard::Right))
-		//	view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? speed * fast : speed), 0));
-		//if (Keyboard::isKeyPressed(Keyboard::Left))
-		//	view.move(Vector2f(elapsed.asSeconds() * (Keyboard::isKeyPressed(Keyboard::Space) ? -speed * fast : -speed), 0));
-
-		// перезагрузка карты
-		//reloadSeconds -= elapsed.asSeconds();
-		//if (reloadSeconds <= 0) {
-		//	reloadSeconds = reload;
-		//	this->load(textureSet, tileSize, levelFile);
-		//}
-	}
-}
 
 Vertex * Map::getQuad(int x, int y)
 {
