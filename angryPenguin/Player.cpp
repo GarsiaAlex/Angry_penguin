@@ -3,6 +3,7 @@
 Player::Player(Map* map, string fileName) : Movable (map, fileName) {
 	HP = 150;
 	score = 0;
+	colType:: platform;
 }
 
 int Player::getHP() {
@@ -40,4 +41,8 @@ void Player::update(Time elapsed)
 	else {
 		speed.x = 0;
 	}
+}
+
+int Player::getColType() {
+	return  colType::platform;
 }

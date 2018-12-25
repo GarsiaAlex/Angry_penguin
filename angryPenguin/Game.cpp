@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Map.h"
 
-Game::Game(): player(&map, "cat.png"), penguin(&map, "cat.png")
+Game::Game(): player(&map, "cat.png"), pengy(&map, "penguin.png")
 {
 	map.load("tileset.png", 32, "map.txt");
 	window = new RenderWindow(VideoMode(map.getTileSize() * map.getLevelSize().y * 2, map.getTileSize() * map.getLevelSize().y), "ANGRY PENGUIN | ESC to exit", Style::Titlebar | Style::Close);
@@ -26,6 +26,7 @@ void Game::start(int speed, int fast, float reload)
 	Clock clock;
 	Event event;
 	Vector2f coords;
+
 	while (window->isOpen()) {
 		Time elapsed = clock.restart();
 		while (window->pollEvent(event)) {
@@ -55,10 +56,10 @@ void Game::start(int speed, int fast, float reload)
 		player.update(elapsed);
 		player.move(elapsed);
 		window->draw(player);
-		
-		penguin.update(elapsed);
-		penguin.move(elapsed, &player);
-		window->draw(penguin);
+
+		pengy.update(elapsed);
+		pengy.move(elapsed, &player);
+		window->draw(pengy);
 
 		window->display(); // отрисовка кадра
 		if(player.position.x > view->getCenter().x)

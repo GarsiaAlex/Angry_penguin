@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "Map.h"
 #include "Player.h"
@@ -13,7 +14,7 @@ private:
 	float viewOffset;
 	Texture background;
 	Player player;
-	Penguin penguin;
+	Penguin pengy;
 
 public:
 	Game();

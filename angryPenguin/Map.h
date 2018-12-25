@@ -22,9 +22,10 @@ public:
 	Vector2i getTileCell(int x, int y);
 	int getTileNum(int x, int y);
 	void setTileNum(int cellX, int cellY, char value);
-	static bool isCollidable(char value);
+	static bool isCollidable(char value, int colTypeIndex);
 	int getTileSize();
 	Vector2u getLevelSize();
+
 
 	virtual void draw(RenderTarget & target, RenderStates states) const override;
 };
