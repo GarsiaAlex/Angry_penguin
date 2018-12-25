@@ -40,4 +40,39 @@ void Player::update(Time elapsed)
 	else {
 		speed.x = 0;
 	}
+	//////////////////////// Взаимодействие со звездой
+	auto bounds = sprite.getGlobalBounds();
+
+
+	if (map->getTileNum(bounds.left, bounds.top)==4)
+	{
+		auto cell = map->getTileCell(bounds.left, bounds.top);
+		map->setTileNum(cell.x, cell.y, 0);
+		map->refresh();
+		addScore(10);
+	}
+
+	if (map->getTileNum(bounds.left, bounds.top+bounds.height) == 4)
+	{
+		auto cell = map->getTileCell(bounds.left, bounds.top);
+		map->setTileNum(cell.x, cell.y, 0);
+		map->refresh();
+		addScore(10);
+	}
+
+	if (map->getTileNum(bounds.left + bounds.width, bounds.top) == 4)
+	{
+		auto cell = map->getTileCell(bounds.left, bounds.top);
+		map->setTileNum(cell.x, cell.y, 0);
+		map->refresh();
+		addScore(10);
+	}
+	if (map->getTileNum(bounds.left + bounds.width, bounds.top+bounds.width) == 4)
+	{
+		auto cell = map->getTileCell(bounds.left, bounds.top);
+		map->setTileNum(cell.x, cell.y, 0);
+		map->refresh();
+		addScore(10);
+	}
+	////////////////////////
 }
