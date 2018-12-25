@@ -31,7 +31,7 @@ bool Player::collision()
 	return false;
 }
 
-void Player::activateWalrus(list<Walrus*> wlr, Penguin& peng)
+void Player::activateWalrus(list<Walrus*> wlr, Movable& peng)
 {
 	for (auto i = wlr.begin(); i != wlr.end(); i++) {
 		if (sprite.getGlobalBounds().intersects((*i)->sprite.getGlobalBounds())) {
