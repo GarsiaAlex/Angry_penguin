@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Map.h"
+#include "Walrus.h"
 
 Game::Game(): player(&map, "cat.png"), pengy(&map, "penguin.png")
 {
@@ -22,6 +23,8 @@ void Game::start(int speed, int fast, float reload)
 {
 	player.position.x = 32 * 5;
 	player.position.y = 32 * 6;
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32*18, 32*5)));
+	
 	//==================
 	Clock clock;
 	Event event;
@@ -39,6 +42,8 @@ void Game::start(int speed, int fast, float reload)
 					window->close();
 				if (event.key.code == Keyboard::Up)
 					player.jump();
+				if (event.key.code == Keyboard::Space)
+					player.activateWalrus(walrii, pengy);
 				break;
 			case Event::MouseMoved:
 				coords = window->mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), *view);
@@ -52,6 +57,14 @@ void Game::start(int speed, int fast, float reload)
 		window->clear(); // очистка кадра
 
 		window->draw(map);
+
+		for (auto i = walrii.begin(); i != walrii.end(); i++) {
+			if ((*i)->isActive()) {
+				(*i)->update(elapsed);
+				(*i)->move(elapsed);
+				window->draw(**i);
+			}
+		}
 
 		player.update(elapsed);
 		player.move(elapsed);

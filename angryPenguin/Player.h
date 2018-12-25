@@ -1,5 +1,7 @@
 #pragma once
 #include "Movable.h"
+#include "Walrus.h"
+#include "Penguin.h"
 
 class Player : public Movable {
 private:
@@ -14,6 +16,7 @@ public:
 	void addHP(int num);
 	void subHP(int num);
 	bool collision();
+	void activateWalrus(list<Walrus*> wlr, Penguin& peng);
 	virtual void update(Time elapsed) override;
 	int getColType();
 };

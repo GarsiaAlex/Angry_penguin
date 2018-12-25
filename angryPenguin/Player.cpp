@@ -31,6 +31,20 @@ bool Player::collision()
 	return false;
 }
 
+void Player::activateWalrus(list<Walrus*> wlr, Penguin& peng)
+{
+	for (auto i = wlr.begin(); i != wlr.end(); i++) {
+		if (sprite.getGlobalBounds().intersects((*i)->sprite.getGlobalBounds())) {
+			// DO SOMETHING
+			// (**i) <= морж
+			// this <= плеер
+			cout << "ACTIVATED" << endl;
+			(*i)->deactivate();
+			break;
+		}
+	}
+}
+
 void Player::update(Time elapsed)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
