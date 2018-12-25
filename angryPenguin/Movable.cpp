@@ -38,7 +38,7 @@ void Movable::move(Time elapsed)
 		for (float scan = 0; scan < map->getTileSize() * 3; scan += map->getTileSize()) {
 			float x = forward + scan * direction;
 			float y = *it;
-			if (Map::isCollidable(map->getTileNum(x, y)) && (scan < closestScan)) {
+			if (Map::isCollidable(map->getTileNum(x, y), getColType()) && (scan < closestScan)) {
 				collision = true;
 				closestXIntersTile = Vector2i(x, y);
 				closestScan = scan;
@@ -77,6 +77,7 @@ void Movable::move(Time elapsed)
 	for (float i = bounds.left + 1; i < bounds.left + bounds.width; i += map->getTileSize() / 2) {
 		yInters.push_back(i);
 	}
+	
 	yInters.push_back(bounds.left + bounds.width - 1);
 	Vector2i closestYIntersTile;
 	collision = false;
@@ -85,10 +86,11 @@ void Movable::move(Time elapsed)
 		for (float scan = 0; scan < map->getTileSize() * 3; scan += map->getTileSize()) {
 			float y = forward + scan * direction;
 			float x = *it;
-			if (Map::isCollidable(map->getTileNum(x, y)) && (scan < closestScan)) {
+			if (Map::isCollidable(map->getTileNum(x, y), getColType()) && (scan < closestScan)) {
 				collision = true;
 				closestYIntersTile = Vector2i(x, y);
 				closestScan = scan;
+
 				break;
 			}
 		}
@@ -128,9 +130,14 @@ bool Movable::isPhasing()
 {
 	auto bounds = sprite.getGlobalBounds();
 	bool phasing = false;
-	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left, bounds.top));
-	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left + bounds.width, bounds.top));
-	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left, bounds.top + bounds.height));
-	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left + bounds.width, bounds.top + bounds.height));
+	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left, bounds.top), getColType());
+	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left + bounds.width, bounds.top), getColType());
+	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left, bounds.top + bounds.height), getColType());
+	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left + bounds.width, bounds.top + bounds.height), getColType());
 	return phasing;
+}
+
+int Movable::getColType()
+{
+	return colType();
 }

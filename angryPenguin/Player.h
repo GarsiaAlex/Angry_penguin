@@ -1,3 +1,4 @@
+#pragma once
 #include "Movable.h"
 
 class Player : public Movable {
@@ -14,4 +15,5 @@ public:
 	void subHP(int num);
 	bool collision();
 	virtual void update(Time elapsed) override;
+	int getColType();
 };

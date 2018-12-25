@@ -82,7 +82,6 @@ speed: скорость обычной прокрутки в пикселях/с
 fast: speed*fast = скорость ускоренной прокрутки при зажатом пробеле
 reload: время перезагрузки карты из файла в секундах
 */
-
 Vertex * Map::getQuad(int x, int y)
 {
 	Vector2i cell = getTileCell(x, y);
@@ -113,16 +112,29 @@ void Map::setTileNum(int cellX, int cellY, char value)
 	levelData[cellY][cellX] = value + '0';
 }
 
-bool Map::isCollidable(char value)
+bool Map::isCollidable(char value, int colTypeIndex)
 {
-	switch (value){
-	case 2:
-		return true;
-	default:
-		return false;
+	if (colTypeIndex == 0) {
+		switch (value) {
+		case 1:
+			return true;
+			break;
+		default:
+			return false;
+			break;
+		}
+	}
+	else if (colTypeIndex == 1) {
+		switch (value) {
+		case 2:
+			return true;
+			break;
+		default:
+			return false;
+			break;
+		}
 	}
 }
-
 /*
 Получение размера тайла в пикселях
 */

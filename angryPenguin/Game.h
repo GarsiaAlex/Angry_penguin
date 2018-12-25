@@ -1,6 +1,8 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "Map.h"
 #include "Player.h"
+#include "Penguin.h"
 using namespace sf;
 
 class Game {
@@ -12,6 +14,8 @@ private:
 	float viewOffset;
 	Texture background;
 	Player player;
+	Penguin pengy;
+
 public:
 	Game();
 	~Game();
