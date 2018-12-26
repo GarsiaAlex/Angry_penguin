@@ -38,9 +38,18 @@ void Player::activateWalrus(list<Walrus*> wlr, Movable& peng)
 			// DO SOMETHING
 			// (**i) <= морж
 			// this <= плеер
-			cout << "ACTIVATED" << endl;
-			(*i)->deactivate();
-			break;
+			
+			if ((*i)->isActive()) {
+				if (abs(peng.position.x - (*i)->position.x) <= 50) {
+					peng.position.x -= 200;
+					if (abs(peng.position.y - (*i)->position.y) <= 50) {
+						peng.position.x -= 200;
+					}
+				}
+				(*i)->deactivate();
+				(*i)->unloadListOfWalrus(wlr);
+				break;
+			}
 		}
 	}
 }
