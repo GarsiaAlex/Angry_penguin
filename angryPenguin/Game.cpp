@@ -31,7 +31,7 @@ void Game::start(int speed, int fast, float reload)
 	Event event;
 	Vector2f coords;
 
-	Bar bar("", "Rubius.ttf", &player, view->getCenter().x - 350, view->getCenter().x + 250);
+	Bar bar("Bar.png", "Rubius.ttf", &player, view->getCenter().x - 350, view->getCenter().x + 250);
 
 	while (window->isOpen()) {
 		Time elapsed = clock.restart();
