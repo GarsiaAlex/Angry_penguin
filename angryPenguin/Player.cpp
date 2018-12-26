@@ -31,6 +31,28 @@ bool Player::collision()
 	return false;
 }
 
+void Player::activateWalrus(list<Walrus*> wlr, Movable& peng)
+{
+	for (auto i = wlr.begin(); i != wlr.end(); i++) {
+		if (sprite.getGlobalBounds().intersects((*i)->sprite.getGlobalBounds())) {
+			// DO SOMETHING
+			// (**i) <= морж
+			// this <= плеер
+			
+			if ((*i)->isActive()) {
+				if (abs(peng.position.x - (*i)->position.x) <= 50) {
+					peng.position.x -= 200;
+					if (abs(peng.position.y - (*i)->position.y) <= 50) {
+						peng.position.x -= 200;
+					}
+				}
+				(*i)->deactivate();
+				break;
+			}
+		}
+	}
+}
+
 void Player::update(Time elapsed)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {

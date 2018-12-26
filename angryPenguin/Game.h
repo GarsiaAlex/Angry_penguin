@@ -3,10 +3,11 @@
 #include "Map.h"
 #include "Player.h"
 #include "Penguin.h"
+#include <list>
 using namespace sf;
 
 class Game {
-private:
+protected:
 	RenderWindow* window;
 	View* view;
 	Map map;
@@ -15,6 +16,7 @@ private:
 	Texture background;
 	Player player;
 	Penguin pengy;
+	list<Walrus*> walrii;
 
 public:
 	Game();

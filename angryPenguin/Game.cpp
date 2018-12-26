@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Map.h"
+#include "Walrus.h"
 #include "Bar.h"
 
 Game::Game(): player(&map, "cat.png"), pengy(&map, "penguin.png")
@@ -26,6 +27,8 @@ void Game::start(int speed, int fast, float reload)
 {
 	player.position.x = 32 * 5;
 	player.position.y = 32 * 6;
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32*18, 32*5)));
+	
 	//==================
 	Clock clock;
 	Event event;
@@ -45,6 +48,8 @@ void Game::start(int speed, int fast, float reload)
 					window->close();
 				if (event.key.code == Keyboard::Up)
 					player.jump();
+				if (event.key.code == Keyboard::Space)
+					player.activateWalrus(walrii, pengy);
 				break;
 			case Event::MouseMoved:
 				coords = window->mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), *view);
@@ -60,6 +65,26 @@ void Game::start(int speed, int fast, float reload)
 
 		window->draw(map);
 
+		for (auto i = walrii.begin(); i != walrii.end(); i++) {
+			if ((*i)->isActive()) {
+				(*i)->update(elapsed);
+				(*i)->move(elapsed);
+				window->draw(**i);
+			}
+		}
+
+		for (auto iter = walrii.begin(); iter != walrii.end(); iter++) {
+			if ((*iter)->isActive()) {
+				(*iter)->update(elapsed);
+				(*iter)->move(elapsed);
+				window->draw(**iter);
+			}
+			else {
+				delete *iter;
+				iter = walrii.erase(iter);
+			}
+		}
+
 		player.update(elapsed);
 		player.move(elapsed);
 		window->draw(player);
@@ -71,7 +96,8 @@ void Game::start(int speed, int fast, float reload)
 		bar.update(elapsed);
 		window->draw(bar);
 		window->display(); // отрисовка кадра
-		if (player.position.x > view->getCenter().x) {
+
+		if(player.position.x > view->getCenter().x)
 			view->setCenter(round(player.position.x), view->getCenter().y);
 			bar.setPosition(view->getCenter().x - 350);
 			bar.setPointsPositions(view->getCenter().x + 250); 
