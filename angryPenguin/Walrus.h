@@ -9,5 +9,4 @@ public:
 	bool isActive();
 	void deactivate();
 	int getColType();
-	void unloadListOfWalrus(list<Walrus*> wlr);
 };

@@ -47,7 +47,6 @@ void Player::activateWalrus(list<Walrus*> wlr, Movable& peng)
 					}
 				}
 				(*i)->deactivate();
-				(*i)->unloadListOfWalrus(wlr);
 				break;
 			}
 		}

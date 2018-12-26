@@ -66,6 +66,18 @@ void Game::start(int speed, int fast, float reload)
 			}
 		}
 
+		for (auto iter = walrii.begin(); iter != walrii.end(); iter++) {
+			if ((*iter)->isActive()) {
+				(*iter)->update(elapsed);
+				(*iter)->move(elapsed);
+				window->draw(**iter);
+			}
+			else {
+				delete *iter;
+				iter = walrii.erase(iter);
+			}
+		}
+
 		player.update(elapsed);
 		player.move(elapsed);
 		window->draw(player);
@@ -75,6 +87,7 @@ void Game::start(int speed, int fast, float reload)
 		window->draw(pengy);
 
 		window->display(); // отрисовка кадра
+
 		if(player.position.x > view->getCenter().x)
 			view->setCenter(round(player.position.x), view->getCenter().y);
 	}
