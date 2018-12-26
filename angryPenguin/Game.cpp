@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Map.h"
+#include "Bar.h"
 
 Game::Game(): player(&map, "cat.png"), pengy(&map, "penguin.png")
 {
@@ -10,6 +11,9 @@ Game::Game(): player(&map, "cat.png"), pengy(&map, "penguin.png")
 	viewOffset = 0;
 	viewStart = view->getCenter().x;
 	viewEnd = map.getLevelSize().x * map.getTileSize() - viewStart;
+	window->setVerticalSyncEnabled(true);
+	window->setMouseCursorGrabbed(true);
+	window->setMouseCursorVisible(false);
 }
 
 Game::~Game()
@@ -26,6 +30,8 @@ void Game::start(int speed, int fast, float reload)
 	Clock clock;
 	Event event;
 	Vector2f coords;
+
+	Bar bar("", "Rubius.ttf", &player, view->getCenter().x - 350, view->getCenter().x + 250);
 
 	while (window->isOpen()) {
 		Time elapsed = clock.restart();
@@ -48,6 +54,7 @@ void Game::start(int speed, int fast, float reload)
 				break;
 			}
 		}
+
 		window->setView(*view);
 		window->clear(); // очистка кадра
 
@@ -61,8 +68,13 @@ void Game::start(int speed, int fast, float reload)
 		pengy.move(elapsed, &player);
 		window->draw(pengy);
 
+		bar.update(elapsed);
+		window->draw(bar);
 		window->display(); // отрисовка кадра
-		if(player.position.x > view->getCenter().x)
+		if (player.position.x > view->getCenter().x) {
 			view->setCenter(round(player.position.x), view->getCenter().y);
+			bar.setPosition(view->getCenter().x - 350);
+			bar.setPointsPositions(view->getCenter().x + 250); 
+		}
 	}
 }

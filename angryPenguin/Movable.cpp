@@ -105,13 +105,13 @@ void Movable::move(Time elapsed)
 	realMovement = direction * min(abs(forwardFrameMovement), abs(distanceToQuad));
 	if(elapsed.asMilliseconds() != 0)
 		speed.y = realMovement / elapsed.asSeconds();
-//	if (abs(speed.y) < 3) {
-	//	speed.y = 0;
+	if (abs(speed.y) < 3) {
+		speed.y = 0;
 		isOnGround = true;
-	//}
-	//else {
-	//	isOnGround = false;
-	//}
+	}
+	else {
+		isOnGround = false;
+	}
 	position.y += realMovement;
 
 	// Move sprite

@@ -1,6 +1,4 @@
 #include "Player.h"
-#define чучуть 10
-#define дай_чучуть_хепе addHP(10);
 
 Player::Player(Map* map, string fileName) : Movable (map, fileName) {
 	HP = 150;
@@ -89,7 +87,7 @@ void Player::update(Time elapsed)
 		auto cell = map->getTileCell(bounds.left-2, bounds.top-2);
 		map->setTileNum(cell.x, cell.y, 0);
 		map->refresh();
-		дай_чучуть_хепе
+		addHP(10);
 	}
 
 	if (map->getTileNum(bounds.left-2, bounds.top + bounds.height-2) == 3)
@@ -97,7 +95,7 @@ void Player::update(Time elapsed)
 		auto cell = map->getTileCell(bounds.left, bounds.top);
 		map->setTileNum(cell.x, cell.y, 0);
 		map->refresh();
-		дай_чучуть_хепе
+		addHP(10);
 	}
 
 	if (map->getTileNum(bounds.left + bounds.width-2, bounds.top-2) == 3)
@@ -105,14 +103,14 @@ void Player::update(Time elapsed)
 		auto cell = map->getTileCell(bounds.left, bounds.top);
 		map->setTileNum(cell.x, cell.y, 0);
 		map->refresh();
-		дай_чучуть_хепе
+		addHP(10);
 	}
 	if (map->getTileNum(bounds.left + bounds.width-2, bounds.top + bounds.width-2) == 3)
 	{
 		auto cell = map->getTileCell(bounds.left, bounds.top);
 		map->setTileNum(cell.x, cell.y, 0);
 		map->refresh();
-		дай_чучуть_хепе
+		addHP(10);
 	}
 	////////////////////////
 }
