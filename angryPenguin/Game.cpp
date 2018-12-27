@@ -33,8 +33,13 @@ void Game::start(int speed, int fast, float reload)
 	Clock clock;
 	Event event;
 	Vector2f coords;
+	Vector2f viewCoords;
+	Vector2f mapCoords;
+	int offset = view->getSize().x / 2;
 
 	Bar bar("Bar.png", "Rubius.ttf", &player, view->getCenter().x - 350, view->getCenter().x + 250);
+	bar.stopGame();
+	bar.loadMsgFromFile("intro.txt");
 
 	while (window->isOpen()) {
 		Time elapsed = clock.restart();
@@ -50,9 +55,11 @@ void Game::start(int speed, int fast, float reload)
 					player.jump();
 				if (event.key.code == Keyboard::Space)
 					player.activateWalrus(walrii, pengy);
+				if (event.key.code == Keyboard::Enter)
+					bar.startGame();
 				break;
 			case Event::MouseMoved:
-				coords = window->mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), *view);
+				//coords = window->mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), *view);
 				//cout << coords.x << " " << coords.y << endl;
 				break;
 			default:
@@ -63,50 +70,67 @@ void Game::start(int speed, int fast, float reload)
 		window->setView(*view);
 		window->clear(); // очистка кадра
 
-		window->draw(map);
-
-		for (auto i = walrii.begin(); i != walrii.end(); i++) {
-			if ((*i)->isActive()) {
-				(*i)->update(elapsed);
-				(*i)->move(elapsed);
-				window->draw(**i);
-			}
-		}
-
-		//обработка списка моржей
-		for (auto iter = walrii.begin(); iter != walrii.end(); iter++) {
-			if ((*iter)->isActive()) {
-				(*iter)->update(elapsed);
-				(*iter)->move(elapsed);
-				window->draw(**iter);
-			}
-			else {
-				delete *iter;
-				iter = walrii.erase(iter);
-			}
-		}
-
-		if (!player.getStateOfDeath()) {
-			player.update(elapsed);
-			player.move(elapsed);
-			window->draw(player);
-
-			pengy.update(elapsed);
-			pengy.move(elapsed, &player);
-			window->draw(pengy);
-
+		if (!bar.isStarted()) {
 			bar.update(elapsed);
 			window->draw(bar);
-			window->display(); // отрисовка кадра
 		}
+		else {
 
-		//настройка области видимости карты
-		if(player.position.x > view->getCenter().x){
-			view->setCenter(round(player.position.x), view->getCenter().y);
-			
-			//установка позиции строк состояния.
-			bar.setPosition(view->getCenter().x - 350);
-			bar.setPointsPositions(view->getCenter().x + 250); 
+			window->draw(map);
+
+			for (auto i = walrii.begin(); i != walrii.end(); i++) {
+				if ((*i)->isActive()) {
+					(*i)->update(elapsed);
+					(*i)->move(elapsed);
+					window->draw(**i);
+				}
+			}
+
+			//обработка списка моржей
+			for (auto iter = walrii.begin(); iter != walrii.end(); iter++) {
+				if ((*iter)->isActive()) {
+					(*iter)->update(elapsed);
+					(*iter)->move(elapsed);
+					window->draw(**iter);
+				}
+				else {
+					delete *iter;
+					iter = walrii.erase(iter);
+				}
+			}
+
+			if (!player.getStateOfDeath()) {
+				player.update(elapsed);
+				player.move(elapsed);
+				window->draw(player);
+
+				pengy.update(elapsed);
+				pengy.move(elapsed, &player);
+				window->draw(pengy);
+
+				bar.update(elapsed);
+				window->draw(bar);
+			}
+			else {
+				bar.stopGame();
+				bar.setMsgPosition(window->mapPixelToCoords(Vector2i(10, 10), *view));
+				bar.setMsg("THOU ART FAILED!\nBE GONE AT ONCE\nUNLESS THOU WISHEST\nTO INCUR OUR WRATH!");
+			}
+
+			//настройка области видимости карты
+			if (player.position.x > view->getCenter().x) {
+				viewCoords = window->mapPixelToCoords(Vector2i(view->getCenter()), *view);
+				mapCoords = window->mapPixelToCoords(Vector2i(map.getLevelPixelSize()), *view);
+
+				if (viewCoords.x < mapCoords.x - offset) {
+					view->setCenter(round(player.position.x), view->getCenter().y);
+
+					//установка позиции строк состояния.
+					bar.setPosition(view->getCenter().x - 350);
+					bar.setPointsPositions(view->getCenter().x + 250);
+				}
+			}
 		}
+		window->display(); // отрисовка кадра
 	}
 }

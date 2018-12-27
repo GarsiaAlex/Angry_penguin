@@ -151,6 +151,11 @@ Vector2u Map::getLevelSize()
 	return levelSize;
 }
 
+Vector2u Map::getLevelPixelSize()
+{
+	return Vector2u(levelSize.x * tileSize, levelSize.y * tileSize);
+}
+
 /*
 Наследуется из sf::Drawable
 Отрисовка карты

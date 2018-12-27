@@ -25,6 +25,7 @@ public:
 	static bool isCollidable(char value, int colTypeIndex);
 	int getTileSize();
 	Vector2u getLevelSize();
+	Vector2u getLevelPixelSize();
 
 
 	virtual void draw(RenderTarget & target, RenderStates states) const override;

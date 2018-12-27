@@ -1,4 +1,5 @@
 #include "Bar.h"
+#include <fstream>
 
 Bar::Bar(string nameOfFileForHP, string nameOfFileForPoints, Player * p, float posXHP, float posXScore)
 {
@@ -19,6 +20,17 @@ Bar::Bar(string nameOfFileForHP, string nameOfFileForPoints, Player * p, float p
 	points.setPosition(Vector2f(pointsPosition.x = posXScore, 5));
 	points.setString("0");
 	points.setFillColor(Color::Black);
+
+	// Экран
+	blackScreen.setSize(Vector2f(2000, 2000));
+	blackScreen.setPosition(Vector2f(0, 0));
+	blackScreen.setFillColor(Color(200, 200, 200));
+
+	// Cообщение
+	message.setFont(font);
+	message.setCharacterSize(60);
+	message.setPosition(Vector2f(10, 10));
+	message.setFillColor(Color::Red);
 }
 
 void Bar::update(Time elapsed)
@@ -37,8 +49,14 @@ void Bar::update(Time elapsed)
 
 void Bar::draw(RenderTarget & target, RenderStates states) const
 {
-	target.draw(HP, states);
-	target.draw(points, states);
+	if (gameStarted) {
+		target.draw(HP, states);
+		target.draw(points, states);
+	}
+	else {
+		target.draw(blackScreen);
+		target.draw(message);
+	}
 }
 
 void Bar::setPosition(int posX)
@@ -49,4 +67,45 @@ void Bar::setPosition(int posX)
 void Bar::setPointsPositions(int posX)
 {
 	pointsPosition.x = posX;
+}
+
+void Bar::setMsg(String str)
+{
+	message.setString(str);
+}
+
+void Bar::setMsgPosition(Vector2f coords)
+{
+	message.setPosition(coords);
+}
+
+void Bar::loadMsgFromFile(std::string fileName)
+{
+	string s, buffer;
+	ifstream file(fileName);
+	while (file >> buffer) {
+		if (buffer == "n") {
+			s += "\n";
+		}
+		else {
+			s += buffer;
+			s += " ";
+		}
+	}
+	setMsg(s);
+}
+
+bool Bar::isStarted()
+{
+	return gameStarted;
+}
+
+void Bar::startGame()
+{
+	gameStarted = true;
+}
+
+void Bar::stopGame()
+{
+	gameStarted = false;
 }

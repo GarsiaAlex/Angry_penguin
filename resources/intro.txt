@@ -1,0 +1,5 @@
+Press Enter to start
+n
+next line
+n
+because C++
