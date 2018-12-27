@@ -10,6 +10,7 @@ protected:
 	bool isOnGround;
 	enum colType {water, platform};
 	Vector2f Direction;
+	float colDown = 1;
 
 public:
 	Movable(Map* map, string fileName);

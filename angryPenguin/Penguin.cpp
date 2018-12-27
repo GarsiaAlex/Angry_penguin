@@ -1,5 +1,6 @@
 #include "Penguin.h"
 
+//метод проверки столкновения с игроком
 bool Penguin::collPlayer(Player *pl)
 {
 	if (this->sprite.getGlobalBounds().intersects(pl->sprite.getGlobalBounds())) {
@@ -48,18 +49,17 @@ void Penguin::move(Time elapsed, Player *pl)
 	//std::cout << Direction.x << "  - x   " << Direction.y << "  - y" << endl;
 	colDown -= elapsed.asSeconds();
 	if (abs(Direction.x) < 300) {
-		
 		if (colDown <= 0) {
 			colDown = 1;
 			jump();
 		}
-
 	}
 
 	//cout << "x/y    " << (Direction.x / Direction.y) << endl;
 	speed.x = Direction.x*3;
 	Movable::move(elapsed);
 
+	//результат столкновения пингвина с игроком
 	collPlayer(pl);
 	if (isCollPlayer) {
 		if (countCollPlayer == 1)

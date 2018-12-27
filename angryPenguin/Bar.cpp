@@ -10,7 +10,7 @@ Bar::Bar(string nameOfFileForHP, string nameOfFileForPoints, Player * p, float p
 	HP.setPosition(Vector2f(position.x = posXHP, position.y = 5));		//Установка расположения HP-bar'a
 	HP.setTexture(&HPTexture);			//Установка фонового изображения
 	HP.setOutlineThickness(4);			//Установка размера рамки
-	HP.setOutlineColor(sf::Color::Black); //Установка цвета рамки
+	HP.setOutlineColor(sf::Color::Blue); //Установка цвета рамки
 
 	//Настройка points
 	font.loadFromFile(nameOfFileForPoints);

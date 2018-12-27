@@ -6,6 +6,7 @@ class Player : public Movable {
 private:
 	int score;
 	int HP;
+	bool stateOfDeath;
 
 public:
 	Player(Map* map, string fileName);
@@ -18,4 +19,7 @@ public:
 	void activateWalrus(list<Walrus*> wlr, Movable& peng);
 	virtual void update(Time elapsed) override;
 	int getColType();
+	void onDeath();
+	bool getStateOfDeath();
+	void collStarAndSweater();
 };

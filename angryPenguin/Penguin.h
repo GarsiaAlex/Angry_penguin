@@ -6,7 +6,6 @@ class Penguin : public Movable {
 private: 
 	float direction;
 	bool isCollPlayer = false;
-	float colDown = 1;
 	int countCollPlayer = 0;
 
 public:

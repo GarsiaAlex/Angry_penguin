@@ -73,6 +73,7 @@ void Game::start(int speed, int fast, float reload)
 			}
 		}
 
+		//обработка списка моржей
 		for (auto iter = walrii.begin(); iter != walrii.end(); iter++) {
 			if ((*iter)->isActive()) {
 				(*iter)->update(elapsed);
@@ -85,20 +86,25 @@ void Game::start(int speed, int fast, float reload)
 			}
 		}
 
-		player.update(elapsed);
-		player.move(elapsed);
-		window->draw(player);
+		if (!player.getStateOfDeath()) {
+			player.update(elapsed);
+			player.move(elapsed);
+			window->draw(player);
 
-		pengy.update(elapsed);
-		pengy.move(elapsed, &player);
-		window->draw(pengy);
+			pengy.update(elapsed);
+			pengy.move(elapsed, &player);
+			window->draw(pengy);
 
-		bar.update(elapsed);
-		window->draw(bar);
-		window->display(); // отрисовка кадра
+			bar.update(elapsed);
+			window->draw(bar);
+			window->display(); // отрисовка кадра
+		}
 
-		if(player.position.x > view->getCenter().x)
+		//настройка области видимости карты
+		if(player.position.x > view->getCenter().x){
 			view->setCenter(round(player.position.x), view->getCenter().y);
+			
+			//установка позиции строк состояния.
 			bar.setPosition(view->getCenter().x - 350);
 			bar.setPointsPositions(view->getCenter().x + 250); 
 		}
