@@ -9,10 +9,6 @@ Game::Game(): player(&map, "cat.png"), pengy(&map, "penguin.png")
 	window = new RenderWindow(VideoMode(map.getTileSize() * map.getLevelSize().y * 2, map.getTileSize() * map.getLevelSize().y), "ANGRY PENGUIN | ESC to exit", Style::Titlebar | Style::Close);
 	view = new View(FloatRect(0, 0, map.getTileSize() * map.getLevelSize().y * 2, map.getTileSize() * map.getLevelSize().y));
 	window->setVerticalSyncEnabled(true);
-	viewOffset = 0;
-	viewStart = view->getCenter().x;
-	viewEnd = map.getLevelSize().x * map.getTileSize() - viewStart;
-	window->setVerticalSyncEnabled(true);
 	window->setMouseCursorGrabbed(true);
 	window->setMouseCursorVisible(false);
 }
@@ -23,13 +19,12 @@ Game::~Game()
 	delete view;
 }
 
-void Game::start(int speed, int fast, float reload)
+void Game::start(int speed)
 {
 	player.position.x = 32 * 5;
 	player.position.y = 32 * 6;
 	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32*18, 32*5)));
 	
-	//==================
 	Clock clock;
 	Event event;
 	Vector2f coords;
@@ -51,16 +46,12 @@ void Game::start(int speed, int fast, float reload)
 			case Event::KeyPressed:
 				if (event.key.code == Keyboard::Escape)
 					window->close();
-				if (event.key.code == Keyboard::Up)
-					player.jump();
 				if (event.key.code == Keyboard::Space)
+					player.jump();
+				if (event.key.code == Keyboard::X)
 					player.activateWalrus(walrii, pengy);
 				if (event.key.code == Keyboard::Enter)
 					bar.startGame();
-				break;
-			case Event::MouseMoved:
-				//coords = window->mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), *view);
-				//cout << coords.x << " " << coords.y << endl;
 				break;
 			default:
 				break;
@@ -75,17 +66,7 @@ void Game::start(int speed, int fast, float reload)
 			window->draw(bar);
 		}
 		else {
-
 			window->draw(map);
-
-			for (auto i = walrii.begin(); i != walrii.end(); i++) {
-				if ((*i)->isActive()) {
-					(*i)->update(elapsed);
-					(*i)->move(elapsed);
-					window->draw(**i);
-				}
-			}
-
 			//обработка списка моржей
 			for (auto iter = walrii.begin(); iter != walrii.end(); iter++) {
 				if ((*iter)->isActive()) {
@@ -119,6 +100,7 @@ void Game::start(int speed, int fast, float reload)
 
 			//настройка области видимости карты
 			if (player.position.x > view->getCenter().x) {
+				//конвертирование координат окна в координаты карты
 				viewCoords = window->mapPixelToCoords(Vector2i(view->getCenter()), *view);
 				mapCoords = window->mapPixelToCoords(Vector2i(map.getLevelPixelSize()), *view);
 

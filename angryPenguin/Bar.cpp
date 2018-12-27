@@ -4,7 +4,7 @@
 Bar::Bar(string nameOfFileForHP, string nameOfFileForPoints, Player * p, float posXHP, float posXScore)
 {
 	this->player = p;
-	HPTexture.loadFromFile(nameOfFileForHP);			//подгрузить текстуру для HP-bar'a
+	HPTexture.loadFromFile(nameOfFileForHP);		//подгрузить текстуру для HP-bar'a
 
 	//Настройка HP-bar'a
 	HP.setSize(Vector2f(player->getHP(), 25));		//Установка нач. размера для его послед. изме. при уменьшении здоровья игрока

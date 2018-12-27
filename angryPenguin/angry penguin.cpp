@@ -3,5 +3,5 @@
 
 int main() {
     Game game;
-	game.start(500, 5, 1);
+	game.start(500);
 }

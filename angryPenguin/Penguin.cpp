@@ -16,11 +16,11 @@ Penguin::Penguin(Map* map, string fileName) : Movable(map, fileName) {
 	speed.y = 300;
 	position.x = 100;
 	position.y = 300;
-	colType::water;
 }
 
 void Penguin::update(Time elapsed)
 {
+	//ограничители скорости
 	int direction = (speed.x > 0) ? 1 : -1;
 	if (abs(speed.x) > 30) {
 		speed.x = 30;
@@ -46,7 +46,6 @@ void Penguin::jump()
 void Penguin::move(Time elapsed, Player *pl)
 {
 	Direction = (pl->position - this->position);
-	//std::cout << Direction.x << "  - x   " << Direction.y << "  - y" << endl;
 	colDown -= elapsed.asSeconds();
 	if (abs(Direction.x) < 300) {
 		if (colDown <= 0) {
@@ -55,7 +54,6 @@ void Penguin::move(Time elapsed, Player *pl)
 		}
 	}
 
-	//cout << "x/y    " << (Direction.x / Direction.y) << endl;
 	speed.x = Direction.x*3;
 	Movable::move(elapsed);
 

@@ -4,7 +4,6 @@ Player::Player(Map* map, string fileName) : Movable (map, fileName) {
 	HP = 150;
 	score = 0;
 	stateOfDeath = false;
-	colType:: platform;
 }
 
 int Player::getHP() {
@@ -36,10 +35,6 @@ void Player::activateWalrus(list<Walrus*> wlr, Movable& peng)
 {
 	for (auto i = wlr.begin(); i != wlr.end(); i++) {
 		if (sprite.getGlobalBounds().intersects((*i)->sprite.getGlobalBounds())) {
-			// DO SOMETHING
-			// (**i) <= морж
-			// this <= плеер
-			
 			//если морж активирован и если пингвин находится в нужной области действи (+/-50 по х и у)
 			if ((*i)->isActive()) {
 				if (abs(peng.position.x - (*i)->position.x) <= 50) {
@@ -75,7 +70,6 @@ void Player::update(Time elapsed)
 	}
 	//////////////////////// Взаимодействие со звездой
 	auto bounds = sprite.getGlobalBounds();
-
 
 	collStarAndSweater(); //проверка столкновения с свитером и/или звездой
 	onDeath();			  //проверка "а не умер ли случаем наш игрок?"
@@ -143,7 +137,6 @@ void Player::collStarAndSweater()
 
 	//////////////////////// Взаимодействие со свитером
 	bounds = sprite.getGlobalBounds();
-
 
 	if (map->getTileNum(bounds.left + 20, bounds.top + 20) == 3)
 	{

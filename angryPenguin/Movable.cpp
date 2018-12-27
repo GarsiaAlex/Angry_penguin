@@ -15,16 +15,16 @@ void Movable::move(Time elapsed)
 	// ВСЕ КООРДИНАТЫ В БЛОКЕ - ДЛЯ ОСИ Х
 	/* ========================================================================================== */
 	int direction = (speed.x >= 0) ? 1 : -1; // направление движения по оси
-	float forward = (direction > 0) ? bounds.left + bounds.width : bounds.left; // соответствующая направлению координата (вперед - передняя грань объекта итд)
+	float forward = (direction > 0) ? bounds.left + bounds.width : bounds.left; 
+	//координата соответствующая направлению координата (вперед - передняя грань объекта итд)
 	
 	// координаты линий, следуя которым мы ищем столкновения
 	/*
 	000----------   <= линия
-	000
+	000----------
 	000----------   <= линия
-	
 	*/
-	vector<float> xInters;
+	vector<float> xInters; //собр знач по у для найденного х
 	for (float i = bounds.top + 1; i < bounds.top + bounds.height; i += map->getTileSize() / 2) {
 		xInters.push_back(i);
 	}
@@ -36,18 +36,19 @@ void Movable::move(Time elapsed)
 	float closestScan = FLT_MAX;
 	for (auto it = xInters.begin(); it != xInters.end(); it++) {
 		for (float scan = 0; scan < map->getTileSize() * 3; scan += map->getTileSize()) {
-			float x = forward + scan * direction;
+			float x = forward + scan * direction;  //точка начала + расстояние на кототором происходит сканирование * на направление
 			float y = *it;
 			if (Map::isCollidable(map->getTileNum(x, y), getColType()) && (scan < closestScan)) {
 				collision = true;
-				closestXIntersTile = Vector2i(x, y);
-				closestScan = scan;
+				closestXIntersTile = Vector2i(x, y); //находим тайл с которым сталкиваемся
+				closestScan = scan;//мин дистанция
 				break;
 			}
 		}
 	}
 
 	// предполагаемое движение
+	//то что должно быть если нет столкновения
 	float forwardFrameMovement = speed.x*elapsed.asSeconds();
 	float distanceToQuad = FLT_MAX;
 
@@ -103,8 +104,10 @@ void Movable::move(Time elapsed)
 		distanceToQuad = direction * min(abs(forward - quad[0].position.y), abs(forward - quad[2].position.y));
 	}
 	realMovement = direction * min(abs(forwardFrameMovement), abs(distanceToQuad));
+
 	if(elapsed.asMilliseconds() != 0)
 		speed.y = realMovement / elapsed.asSeconds();
+
 	if (abs(speed.y) < 3) {
 		speed.y = 0;
 		isOnGround = true;
@@ -123,18 +126,6 @@ void Movable::jump()
 {
 	if(isOnGround)
 		speed.y -= 350;
-}
-
-// ПОКА не используется. не трогать :Р
-bool Movable::isPhasing()
-{
-	auto bounds = sprite.getGlobalBounds();
-	bool phasing = false;
-	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left, bounds.top), getColType());
-	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left + bounds.width, bounds.top), getColType());
-	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left, bounds.top + bounds.height), getColType());
-	phasing = phasing or Map::isCollidable(map->getTileNum(bounds.left + bounds.width, bounds.top + bounds.height), getColType());
-	return phasing;
 }
 
 int Movable::getColType()

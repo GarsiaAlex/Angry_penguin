@@ -21,5 +21,5 @@ protected:
 public:
 	Game();
 	~Game();
-	void start(int speed, int fast, float reload);
+	void start(int speed);
 };

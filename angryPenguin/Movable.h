@@ -16,6 +16,5 @@ public:
 	Movable(Map* map, string fileName);
 	virtual void move(Time elapsed);
 	virtual void jump();
-	bool isPhasing();
 	virtual int getColType();
 };

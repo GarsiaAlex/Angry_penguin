@@ -27,6 +27,5 @@ public:
 	Vector2u getLevelSize();
 	Vector2u getLevelPixelSize();
 
-
 	virtual void draw(RenderTarget & target, RenderStates states) const override;
 };
