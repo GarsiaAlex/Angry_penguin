@@ -22,4 +22,5 @@ public:
 	void onDeath();
 	bool getStateOfDeath();
 	void collStarAndSweater();
+	float CurrentFrame;
 };

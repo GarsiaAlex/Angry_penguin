@@ -4,6 +4,8 @@ Player::Player(Map* map, string fileName) : Movable (map, fileName) {
 	HP = 150;
 	score = 0;
 	stateOfDeath = false;
+	sprite.setTextureRect(IntRect(0, 0, 32, 32));
+	CurrentFrame = 0; //Для перемещения по тайлсету
 }
 
 int Player::getHP() {
@@ -37,6 +39,7 @@ void Player::activateWalrus(list<Walrus*> wlr, Movable& peng)
 		if (sprite.getGlobalBounds().intersects((*i)->sprite.getGlobalBounds())) {
 			//если морж активирован и если пингвин находится в нужной области действи (+/-50 по х и у)
 			if ((*i)->isActive()) {
+				sprite.setTextureRect(IntRect(128, 96, 32, 32));//установка тайла атаки
 				if (abs(peng.position.x - (*i)->position.x) <= 50) {
 					peng.position.x -= 200;
 					if (abs(peng.position.y - (*i)->position.y) <= 50) {
@@ -53,9 +56,16 @@ void Player::activateWalrus(list<Walrus*> wlr, Movable& peng)
 void Player::update(Time elapsed)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
+		if (CurrentFrame > 6) CurrentFrame -= 6; //если пришли 6 кадру - 
+														 //откатываемся назад. 
+		if (speed.y == 0) sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 32, 32, 32)); //Анимация "бег вправо"
+		CurrentFrame += 9 * elapsed.asSeconds();
 		speed.x = 200;
 	}
 	else if (Keyboard::isKeyPressed(Keyboard::Left)) {
+		if (CurrentFrame > 6) CurrentFrame -= 6;
+		if (speed.y == 0) sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32)); //Влево
+		CurrentFrame += 9 * elapsed.asSeconds();
 		speed.x = -200;
 	}
 	else {

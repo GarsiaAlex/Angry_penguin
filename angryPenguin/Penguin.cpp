@@ -16,6 +16,7 @@ Penguin::Penguin(Map* map, string fileName) : Movable(map, fileName) {
 	speed.y = 300;
 	position.x = 100;
 	position.y = 300;
+	sprite.setTextureRect(IntRect(32, 0, 32, 32)); //Установка тайла
 }
 
 void Penguin::update(Time elapsed)
@@ -31,6 +32,10 @@ void Penguin::update(Time elapsed)
 		speed.y = 700;
 		speed.y *= direction;
 	}
+	if (speed.x > 0)
+		sprite.setTextureRect(IntRect(32, 0, 32, 32));//поворот тайла пингвина
+	else
+		sprite.setTextureRect(IntRect(0, 0, 32, 32));
 }
 
 int Penguin::getColType() {
@@ -62,6 +67,10 @@ void Penguin::move(Time elapsed, Player *pl)
 	if (isCollPlayer) {
 		if (countCollPlayer == 1)
 		pl->subHP(10);
+		if (speed.x < 0)
+			pl->sprite.setTextureRect(IntRect(96, 64, 32, 32)); //Анимация игрока при получении урона от пингвина
+		if (speed.x >= 0)
+			pl->sprite.setTextureRect(IntRect(128, 64, 32, 32));
 	}
 
 }

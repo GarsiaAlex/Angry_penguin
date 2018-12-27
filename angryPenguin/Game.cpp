@@ -11,6 +11,8 @@ Game::Game(): player(&map, "cat.png"), pengy(&map, "penguin.png")
 	window->setVerticalSyncEnabled(true);
 	window->setMouseCursorGrabbed(true);
 	window->setMouseCursorVisible(false);
+	background.loadFromFile("clouds.jpg");
+	background.setRepeated(true);
 }
 
 Game::~Game()
@@ -23,7 +25,19 @@ void Game::start(int speed)
 {
 	player.position.x = 32 * 5;
 	player.position.y = 32 * 6;
-	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32*18, 32*5)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 28, 32 * 5)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 128, 32 * 5)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 62, 32 * 1)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 76, 32 * 6)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 143, 32 * 5)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 202, 32 * 6)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 255, 32 * 6)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 295, 32 * 6)));
+	walrii.push_back(new Walrus(&map, "walrus.png", Vector2f(32 * 337, 32 * 5)));
+
+	Sprite bgr_sprite; //Fon
+	bgr_sprite.setTexture(background);
+	bgr_sprite.setTextureRect(IntRect(0, 0, 10000, 500));
 	
 	Clock clock;
 	Event event;
@@ -60,6 +74,7 @@ void Game::start(int speed)
 
 		window->setView(*view);
 		window->clear(); // очистка кадра
+		window->draw(bgr_sprite);
 
 		if (!bar.isStarted()) {
 			bar.update(elapsed);

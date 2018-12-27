@@ -126,6 +126,10 @@ void Movable::jump()
 {
 	if(isOnGround)
 		speed.y -= 350;
+	if (speed.x < 0) //Анимация прыжка влево; вправо
+		sprite.setTextureRect(IntRect(0, 64, 32, 32));
+	if (speed.x >= 0)
+		sprite.setTextureRect(IntRect(32, 64, 32, 32));
 }
 
 int Movable::getColType()
