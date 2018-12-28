@@ -11,8 +11,6 @@ private:
 	RenderWindow* window;
 	View* view;
 	Map map;
-	float viewStart, viewEnd;
-	float viewOffset;
 	Texture background;
 	Player player;
 	Penguin pengy;

@@ -3352,7 +3352,7 @@
 <XPD:REF name="Associations[3]">FzFTCkcwN0SvgHOcXAXMAwAA</XPD:REF>
 <XPD:REF name="Associations[4]">T2TRI//+BU2VpmYY+WixIgAA</XPD:REF>
 <XPD:REF name="Associations[5]">7V3S8hOb+02es4G4nHSe3wAA</XPD:REF>
-<XPD:ATTR name="#Attributes" type="integer">10</XPD:ATTR>
+<XPD:ATTR name="#Attributes" type="integer">7</XPD:ATTR>
 <XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="WozGPH77X0aG/JL8o0EC9gAA">
 <XPD:ATTR name="Name" type="string">window</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
@@ -3371,45 +3371,27 @@
 <XPD:ATTR name="TypeExpression" type="string">Map</XPD:ATTR>
 <XPD:REF name="Owner">xT8Vqfs2Pk29JNS/TzKMpAAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[3]" type="UMLAttribute" guid="93NJ9fgVsU6S+cjS7uidWAAA">
-<XPD:ATTR name="Name" type="string">viewStart</XPD:ATTR>
-<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">float</XPD:ATTR>
-<XPD:REF name="Owner">xT8Vqfs2Pk29JNS/TzKMpAAA</XPD:REF>
-</XPD:OBJ>
-<XPD:OBJ name="Attributes[4]" type="UMLAttribute" guid="sXvb4j2hzkyBH0bzOGx6bgAA">
-<XPD:ATTR name="Name" type="string">viewEnd</XPD:ATTR>
-<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">float</XPD:ATTR>
-<XPD:REF name="Owner">xT8Vqfs2Pk29JNS/TzKMpAAA</XPD:REF>
-</XPD:OBJ>
-<XPD:OBJ name="Attributes[5]" type="UMLAttribute" guid="leShNbBqn02RyXHVOkLlJAAA">
-<XPD:ATTR name="Name" type="string">viewOffset</XPD:ATTR>
-<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">float</XPD:ATTR>
-<XPD:REF name="Owner">xT8Vqfs2Pk29JNS/TzKMpAAA</XPD:REF>
-</XPD:OBJ>
-<XPD:OBJ name="Attributes[6]" type="UMLAttribute" guid="hjM4U1vAPU2K+B3StBVNMgAA">
+<XPD:OBJ name="Attributes[3]" type="UMLAttribute" guid="hjM4U1vAPU2K+B3StBVNMgAA">
 <XPD:ATTR name="Name" type="string">background</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">Texture</XPD:ATTR>
 <XPD:REF name="Owner">xT8Vqfs2Pk29JNS/TzKMpAAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[7]" type="UMLAttribute" guid="hhlYXdAdiUqW5MQECycsqwAA">
+<XPD:OBJ name="Attributes[4]" type="UMLAttribute" guid="hhlYXdAdiUqW5MQECycsqwAA">
 <XPD:ATTR name="Name" type="string">player</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">Player</XPD:ATTR>
 <XPD:REF name="Type_">2lKcb8bAnk2eL74SSTGFGQAA</XPD:REF>
 <XPD:REF name="Owner">xT8Vqfs2Pk29JNS/TzKMpAAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[8]" type="UMLAttribute" guid="GRqMJUqbskWzMFB27y/tvwAA">
+<XPD:OBJ name="Attributes[5]" type="UMLAttribute" guid="GRqMJUqbskWzMFB27y/tvwAA">
 <XPD:ATTR name="Name" type="string">pengy</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">Penguin</XPD:ATTR>
 <XPD:REF name="Type_">AbREvap4ikeogyeHaNOzaAAA</XPD:REF>
 <XPD:REF name="Owner">xT8Vqfs2Pk29JNS/TzKMpAAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[9]" type="UMLAttribute" guid="fkHThqCrS0i8VYPXkIAevQAA">
+<XPD:OBJ name="Attributes[6]" type="UMLAttribute" guid="fkHThqCrS0i8VYPXkIAevQAA">
 <XPD:ATTR name="Name" type="string">walrii</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">list&lt;Walrus*&gt; </XPD:ATTR>

@@ -2,8 +2,14 @@ Hello dear!
 n
 Let's play? 
 n
-If you are sure that you master life saving, feel free to press ENTER!
+If you are sure that you master life saving, 
 n
-But remember, the death of the innocent will remain on your conscience.
+		feel free to press ENTER!
+n
+n
+But remember, 
+n
+the death of the innocent will remain 
+			on your conscience!!!
 n
 Good luck, darling!
