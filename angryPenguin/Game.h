@@ -7,7 +7,7 @@
 using namespace sf;
 
 class Game {
-protected:
+private:
 	RenderWindow* window;
 	View* view;
 	Map map;

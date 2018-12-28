@@ -28,7 +28,7 @@ Bar::Bar(string nameOfFileForHP, string nameOfFileForPoints, Player * p, float p
 
 	// Cообщение
 	message.setFont(font);
-	message.setCharacterSize(60);
+	message.setCharacterSize(40);
 	message.setPosition(Vector2f(10, 10));
 	message.setFillColor(Color::Red);
 }

@@ -1,5 +1,9 @@
-Press Enter to start
+Hello dear! 
 n
-next line
+Let's play? 
 n
-because C++
+If you are sure that you master life saving, feel free to press ENTER!
+n
+But remember, the death of the innocent will remain on your conscience.
+n
+Good luck, darling!

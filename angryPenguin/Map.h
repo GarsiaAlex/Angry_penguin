@@ -4,7 +4,7 @@ using namespace std;
 using namespace sf;
 
 class Map : public Drawable{
-protected:
+private:
 	VertexArray vertices;
 	Texture tileset;
 	vector<vector<char>> levelData;

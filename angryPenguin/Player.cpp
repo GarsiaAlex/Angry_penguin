@@ -39,7 +39,7 @@ void Player::activateWalrus(list<Walrus*> wlr, Movable& peng)
 		if (sprite.getGlobalBounds().intersects((*i)->sprite.getGlobalBounds())) {
 			//если морж активирован и если пингвин находится в нужной области действи (+/-50 по х и у)
 			if ((*i)->isActive()) {
-				sprite.setTextureRect(IntRect(128, 96, 32, 32));//установка тайла атаки
+				sprite.setTextureRect(IntRect(128, 96, 32, 32));	//установка тайла атаки
 				if (abs(peng.position.x - (*i)->position.x) <= 50) {
 					peng.position.x -= 200;
 					if (abs(peng.position.y - (*i)->position.y) <= 50) {
@@ -78,8 +78,6 @@ void Player::update(Time elapsed)
 		colDown = 1;
 		subHP(5);
 	}
-	//////////////////////// Взаимодействие со звездой
-	auto bounds = sprite.getGlobalBounds();
 
 	collStarAndSweater(); //проверка столкновения с свитером и/или звездой
 	onDeath();			  //проверка "а не умер ли случаем наш игрок?"
