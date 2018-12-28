@@ -1,10 +1,20 @@
+#pragma once
 #include "Entity.h"
+#include "Map.h"
 
 class Movable : public Entity {
-private:
+protected:
+	Map *map;
 	Vector2f speed;
-	Vector2f point;
+	Vector2f gravity;
+	bool isOnGround;
+	enum colType {water, platform};
+	Vector2f Direction;
+	float colDown = 1;
 
 public:
-	virtual void move();
+	Movable(Map* map, string fileName);
+	virtual void move(Time elapsed);
+	virtual void jump();
+	virtual int getColType();
 };
