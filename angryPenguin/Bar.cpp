@@ -103,6 +103,7 @@ bool Bar::isStarted()
 void Bar::startGame()
 {
 	gameStarted = true;
+	blackScreen.setPosition(-2000, 0);
 }
 
 void Bar::stopGame()
