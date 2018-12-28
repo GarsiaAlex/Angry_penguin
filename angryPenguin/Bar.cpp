@@ -109,3 +109,8 @@ void Bar::stopGame()
 {
 	gameStarted = false;
 }
+
+void Bar::setFont(string nameOfFile)
+{
+	font.loadFromFile(nameOfFile);
+}

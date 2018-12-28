@@ -109,8 +109,10 @@ void Game::start(int speed)
 			}
 			else {
 				bar.stopGame();
+				bar.setFont("EndOfGame.ttf");
 				bar.setMsgPosition(window->mapPixelToCoords(Vector2i(10, 10), *view));
-				bar.setMsg("THOU ART FAILED!\nBE GONE AT ONCE\nUNLESS THOU WISHEST\nTO INCUR OUR WRATH!");
+				bar.setMsg("YOU KILLED HIM!!!\n			ARE YOU HAPPY??!!\n						HE SUFFERED SO MUCH!!!\n\n Your score:	" 
+					+ to_string(player.getScore()));
 			}
 
 			//настройка области видимости карты

@@ -2901,7 +2901,7 @@
 <XPD:ATTR name="Left" type="integer">1004</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">513</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">316</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">329</XPD:ATTR>
 <XPD:REF name="Model">t8u+dVSR8kKa6nBnmzVDzQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="lLqDxrk//UCeASerBAKyrgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="8A/YEMvSA0OEhdTIEYhciQAA">
@@ -2929,7 +2929,7 @@
 <XPD:OBJ name="OwnedViews[17]" type="UMLAssociationView" guid="oAt9yZ2FhU6stdtHUImrQQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">892,121;1004,133</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">892,122;1004,136</XPD:ATTR>
 <XPD:REF name="Model">XtKYdHc7mUe+Mzmi+DYEKAAA</XPD:REF>
 <XPD:REF name="Head">A/IIPOk1GUyYPAgpgjsNdwAA</XPD:REF>
 <XPD:REF name="Tail">VrIlXjlMY0mxs5kFAMEQEwAA</XPD:REF>
@@ -3930,7 +3930,7 @@
 <XPD:REF name="Views[1]">jhBPaVtD/0OYOfTdG72k4wAA</XPD:REF>
 <XPD:REF name="Views[2]">Go21u3AclkCokUKB9bXYWgAA</XPD:REF>
 <XPD:REF name="Views[3]">goinq3lr7kSpMpp4apHm2QAA</XPD:REF>
-<XPD:ATTR name="#Operations" type="integer">11</XPD:ATTR>
+<XPD:ATTR name="#Operations" type="integer">12</XPD:ATTR>
 <XPD:OBJ name="Operations[0]" type="UMLOperation" guid="ju8K0QbUok2yxy+WQEhxAwAA">
 <XPD:ATTR name="Name" type="string">Bar</XPD:ATTR>
 <XPD:REF name="Owner">t8u+dVSR8kKa6nBnmzVDzQAA</XPD:REF>
@@ -4048,6 +4048,16 @@
 <XPD:OBJ name="Operations[10]" type="UMLOperation" guid="iE4ARlPPS0yw6jm/ENbvpgAA">
 <XPD:ATTR name="Name" type="string">stopGame</XPD:ATTR>
 <XPD:REF name="Owner">t8u+dVSR8kKa6nBnmzVDzQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[11]" type="UMLOperation" guid="bWmHhz0Llk6ChKse9Goa2AAA">
+<XPD:ATTR name="Name" type="string">setFont</XPD:ATTR>
+<XPD:REF name="Owner">t8u+dVSR8kKa6nBnmzVDzQAA</XPD:REF>
+<XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="G03lHOE33Ua7W+0C+NrlggAA">
+<XPD:ATTR name="Name" type="string">nameOfFile</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">string</XPD:ATTR>
+<XPD:REF name="BehavioralFeature">bWmHhz0Llk6ChKse9Goa2AAA</XPD:REF>
+</XPD:OBJ>
 </XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">1</XPD:ATTR>
 <XPD:REF name="Associations[0]">PGMl6gbNQUWQgqdDI508cQAA</XPD:REF>

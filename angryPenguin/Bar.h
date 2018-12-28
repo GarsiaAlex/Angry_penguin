@@ -27,4 +27,5 @@ public:
 	bool isStarted();
 	void startGame();
 	void stopGame();
+	void setFont(string nameOfFile);
 };
